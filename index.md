@@ -4,5 +4,9 @@
 # See: https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 layout: page
 ---
+# Welcome!
 
-![alpaca](alpaca.jpg)
+This is my **Hello, World!** page!
+
+I hope you will have fun with it. ;)
+![alpaca](img/alpaca.jpg)
