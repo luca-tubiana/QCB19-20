@@ -1,4 +1,9 @@
-p.prompt-attention,p.prompt-attention:hover {
+#div1 {
  background-color:#C64537;
  color:#fff;
 }
+
+p.prompt {
+  box-shadow: 10px 0 0px 0px #EDC330, -10px 0 0px 0px #EDC330;
+}
+
