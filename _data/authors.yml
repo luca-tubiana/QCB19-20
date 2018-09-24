@@ -1,0 +1,8 @@
+# /_data/authors.yml
+
+Gianfranco Abrusci:
+    name: "Gianfranco Abrusci"
+    avatar: ""
+    links:
+        - label: "Email"
+        - url: "mailto:gianfranco.abrusci@unitn.it"
