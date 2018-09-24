@@ -9,7 +9,9 @@ mathjax: true
 ### Welcome to our first tutorial!
 
 In this session we will learn the basic of visualising a protein,
-play with it and a recap of what you will need.
+play with it and a recap of what you will need.[^1]
+
+[^1]: This tutorial is adapted from [Using VMD](https://www.ks.uiuc.edu/Training/Tutorials/vmd/vmd-tutorial.pdf)
 
 # Software
 Let's start from the basic. For this tutorial we will use [VMD](https://www.ks.uiuc.edu/Research/vmd/), a visualisation program
@@ -24,20 +26,33 @@ The *Bourne Again SHell* (BASH) Let's have a quick overview of the basic of `bas
 On Ubuntu type `ctrl-alt-T` in order to open a terminal. For macOS, you should find the **Terminal** in the _Applications/_ folder.
 For Windows users, use the lab computers.
 
-Let's move in the
-```
-/
-|---home
-|---bin
-|---lib
-|---usr
-```
+Let's have a walk into the computer filesystem. First of all, type `pwd` (**p**rint **w**orking **d**irectory). The output should be something like:
+<p class="prompt prompt-shell"> /home/your_username </p>
+
+What is inside your folder? Type `ls` (**l**i**s**t) and read the output.
+<p class="prompt prompt-question">What changes if you type "ls -lh"? (without "")</p>
+
+Let's create now a new directory for the course.
+<p class="prompt prompt-shell">$ mkdir QCB_course</p>
+<p class="prompt prompt-attention">Bash does not like white spaces, so use the underscore `_`.</p>
+
+With `pwd` we can see that we are still in the `/home` directory. Try!
+
+Let's go inside
+`QCB_course`.
+<p class="prompt prompt-shell">$ cd QCB_course</p>
+
+To create an empty file, you can use `touch dummy_file.sh`. We will see in a minute
+what the extension `.sh` means.
+
+
+
 
 ```bash
-cd
-mkdir
+-cd
+-mkdir
 cat
-ls
+-ls
 rm
 mv
 cp
@@ -50,10 +65,10 @@ basic-arithmetics
 ```
 
 how to launch a script
-<p class="prompt prompt-shell"> bash my_script.sh </p>
+<p class="prompt prompt-shell">$ bash my_script.sh </p>
 You can also launch an executable with `./my_script`. If you have a script and
 you want to make it executable, do:
-<p class="prompt prompt-shell"> chmod 700 my_script.sh</p>
+<p class="prompt prompt-shell">$ chmod 700 my_script.sh</p>
 If you now list
 
 <p class="prompt prompt-attention"> bash is not the only shell you have on your computer! </p>
@@ -64,7 +79,7 @@ To further learn about `bash`, feel free to search it on [Google](www.google.it)
 
 # Installing VMD
 
-
+lol
 
 ## Common Vocabulary
 what is an [aminoacid]()
@@ -84,6 +99,8 @@ C-$$\alpha$$
 ## Getting started
 
 
+# Visualising
+
 ## Images
 
 choose representation
@@ -94,7 +111,7 @@ custom color
 
 ## Trajectories
 
-custum color
+custom color
 
 
 ## Tcl scripting
@@ -131,4 +148,6 @@ for i in range(10):
 
 --
 
-**Further readings**
+# Further readings
+
+# Notes
