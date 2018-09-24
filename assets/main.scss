@@ -1,0 +1,71 @@
+---
+# Only the main Sass file needs front matter (the dashes are enough)
+---
+
+@import "minima";
+
+#goog-wm-sb,.btn,.prompt {
+ margin-bottom:5px;
+ padding:4px 5px;
+ border-width:1px !important;
+ border-style:solid !important;
+ border-radius:3px;
+ width:100% !important;
+ overflow:auto !important;
+ border-bottom: 0px !important;
+}
+
+.prompt {
+ //font-size:16px;
+ font-size:1.0rem;
+ display:block;
+ text-align:left;
+ font-family:Courier New, "DejaVu Sans Mono", "Bitstream Vera Sans Mono", monospace;
+ background-color:#111;
+ color:#fff;
+ border-color:#111
+}
+
+.prompt-attention, .prompt-attention:hover {
+    background-color: #C64537;
+    color:#fff;
+    border-color:#C64537
+}
+
+.prompt-shell, .prompt-shell:hover {
+    background-color: #300a24;
+    color: #fff;
+    border-color: #300a24;
+}
+//.prompt-info, .prompt-info:hover {
+//    background-color:#308cbc;
+//    color:#fff;
+//    border-color:#308cbc;
+//}
+//.prompt-vmd,.prompt-vmd:hover {
+// background-color:#5cb85c;
+// color:#fff;
+// border-color:#5cb85c
+//}
+//
+//.prompt-question {
+// background-color:#dd8338;
+// color:#fff;
+// border-color:#dd8338
+//}
+.prompt-tk, .prompt-tk:hover {
+    background-color:#e6e6e6;
+    color:#1b53ad;
+    border-color:#e1e1e1;
+}
+.prompt-info, .prompt-info:hover {
+    background-color:#5cb85c;
+    color:#fff;
+    border-color:#5cb85c;
+}
+
+.prompt-question, .prompt-question:hover {
+    background-color:#308cbc;
+    color:#fff;
+    border-color:#308cbc;
+}
