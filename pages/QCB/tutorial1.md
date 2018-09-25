@@ -101,7 +101,7 @@ cd VMD_something
 cd src
 ```
 
-Now you should be raedy to go.
+Now you should be ready to go.
 
 # Getting started
 
@@ -112,8 +112,9 @@ $ rm -f file.tar.gz</p>
 Now launch VMD:
 <p class="prompt prompt-shell">$ vmd</p> and you should have the following:
 <IMG class="displayed" src="../../img/tut1/vmd.png">
+<p align="center"> VMD graphical interface.</p>
 
-If everything works, let's define a common playground.
+If everything works, close it and let's define a common playground.
 
 ## Easy and fast recap
 There are a lot of amino acids out there.
@@ -143,13 +144,69 @@ the nomenclature just introduced.
 <IMG class="displayed" src="../../img/tut1/src_img/recap_aminoacid.png" alt="amino_recap">
 <div align="center">
 a) Alanine amino acid in Licorice with the C-alpha shown. b) Residue of the same amino acid. <br>
-c) Backbone (bottom) and sidechain (top).
+c) Backbone (bottom) and sidechain (top).<br>
 </div>
 
 
-# Secondary structure
+Further information will be provided as we move deep in the course.
+
+## In media re with VMD
+VMD is a software for visualising and analysing molecular systems like proteins.
+We will see a small subset of the available functionality of the program.
+In this lesson we will focus on the visualisation of a protein and on the basics
+of a scripting language called `Tcl` (read: _tickle_).
+
+Let's go back to the shell. In your working folder you should have the following files:
+<p class="prompt prompt-shell"> 1ubq.pdb equilibration.dcd pulling.dcd ubiquitin.psf </p>
+
+Open VMD, typing `vmd`.
+We will have three windows:
+1. VMD Main
+2. VMD Display
+3. the Terminal
+
+In the `VMD Display` our system will be draw.
+`VMD Main` is a graphical interface for all the functionality we need.
+
+![vmd_main](../../img/tut1/src_img/vmd_main.png)
+
+`File`: load molecules, render them.
+`Molecule`: actions on the loaded molecules.
+`Graphics`: representation of the loaded structures.
+`Display`: option for the `VMD Display`.
+`Mouse`: actions that can be performed with the mouse.
+`Extension`: collection of modelling and analysis tools.
+`Help`: (really?).
+
+Let's load a file containing the coordinate of a protein with the extension `.pdb`.
+We will load a structure of the ubiquitin, a small protein that labels proteins that have to be degraded.
+So _File -> New Molecule_ and browse `1ubq.pdb` and load it.
+You will have something like this:
+
+![ubq](../../img/tut1/1ubq.png)
+
+-- rotate R
+-- translate T
+-- scale S
+-- center C
+
+= to reset the view
 
 
+Go in `Display` and select `Orthographic`
+-------
+The same action we performed with the graphical interface can be performed
+via scripting
+
+<p class="prompt prompt-tk">
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</p>
 
 
 ---
@@ -160,23 +217,10 @@ charged aminoacid- polar bubu
 
 what is a [secondary structure]()
 
-C-$$\alpha$$
-
-## Getting started
-
 ## keyboard setting
-
 What are:
 - molid
 - repid
-- v
-
-# Visualising
-
-## Images
-
-## Default style
-
 
 
 choose representation
@@ -197,7 +241,7 @@ basic stuff in Tcl
 
 
 # Exercise
-Downlod a structure from the [Protein Data Bank]() and
+Downlod a structure from the [Protein Data Bank](https://www.rcsb.org/) and
 
 ### Summary of some useful commands
 To load the `.pdb` file:
