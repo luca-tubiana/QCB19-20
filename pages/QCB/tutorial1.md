@@ -185,6 +185,10 @@ You will have something like this:
 
 ![ubq](../../img/tut1/1ubq.png)
 
+Now rotate the protein. Click on the `VMD Display` and press `R` and move the mouse with the left-button pressed.
+<p class="prompt prompt-question"> What if you press the right-button?</p>
+
+
 -- rotate R
 -- translate T
 -- scale S
@@ -196,9 +200,6 @@ You will have something like this:
 # Further readings
 [VMD User's Guide](https://www.ks.uiuc.edu/Research/vmd/current/ug.pdf)
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 0eb988feab740e37a7ef5190d64f4f8cab51b0d7
 ---
 # Notes
