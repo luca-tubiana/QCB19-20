@@ -35,7 +35,7 @@
 .prompt-shell, .prompt-shell:hover {
     background-color:#4c3b59; //#503663;//#43076d;// #300a24;
     color: #fff;
-    border-color: #300a24;
+    border-color: #4c3b59;//#300a24;
 }
 //.prompt-info, .prompt-info:hover {
 //    background-color:#308cbc;
@@ -69,3 +69,9 @@
     color:#fff;
     border-color:#308cbc;
 }
+
+IMG.displayed {
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+  }

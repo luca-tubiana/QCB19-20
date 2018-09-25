@@ -1,0 +1,67 @@
+PSF
+
+       3 !NTITLE
+ REMARKS original generated structure x-plor psf file
+ REMARKS topology ala.top 
+ REMARKS segment 1 { first NONE; last NONE; auto angles dihedrals }
+
+      13 !NATOM
+       1 1    1    ALA  N    N      0.000000       14.0067           0
+       2 1    1    ALA  C    C      0.000000       12.0110           0
+       3 1    1    ALA  O    O      0.000000       15.9994           0
+       4 1    1    ALA  CA   CA     0.000000       12.0110           0
+       5 1    1    ALA  CB   CB     0.000000       12.0110           0
+       6 1    1    ALA  HA   HA2    0.000000        1.0079           0
+       7 1    1    ALA  O1   O1     0.000000       15.9994           0
+       8 1    1    ALA  HT1  HT1    0.000000        1.0079           0
+       9 1    1    ALA  HT2  HT2    0.000000        1.0079           0
+      10 1    1    ALA  HB1  HB1    0.000000        1.0079           0
+      11 1    1    ALA  HB2  HB2    0.000000        1.0079           0
+      12 1    1    ALA  HB3  HB3    0.000000        1.0079           0
+      13 1    1    ALA  H    H      0.000000        1.0079           0
+
+      12 !NBOND: bonds
+       1       4       1       8       1       9       2       4
+       2       3       2       7       4       6       4       5
+       5      10       5      11       5      12       7      13
+
+      19 !NTHETA: angles
+       1       4       5       1       4       6       1       4       2
+       2       7      13       2       4       5       2       4       6
+       3       2       7       4       5      12       4       5      11
+       4       5      10       4       2       7       4       2       3
+       4       1       9       4       1       8       6       4       5
+       8       1       9      10       5      12      10       5      11
+      11       5      12
+
+      23 !NPHI: dihedrals
+       1       4       2       3       1       4       2       7
+       1       4       5      10       1       4       5      11
+       1       4       5      12       2       4       1       8
+       2       4       1       9       2       4       5      10
+       2       4       5      11       2       4       5      12
+       3       2       4       6       3       2       4       5
+       3       2       7      13       4       2       7      13
+       5       4       1       8       5       4       1       9
+       5       4       2       7       6       4       1       8
+       6       4       1       9       6       4       2       7
+       6       4       5      10       6       4       5      11
+       6       4       5      12
+
+       0 !NIMPHI: impropers
+
+
+       0 !NDON: donors
+
+
+       0 !NACC: acceptors
+
+
+       0 !NNB
+
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0
+
+       1       0 !NGRP
+       0       0       0
+

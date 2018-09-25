@@ -92,14 +92,67 @@ If you "list" again, did somethin change?
 To further learn about `bash`, feel free to search it on [Google](www.google.it).
 
 # Installing VMD (optional)
+Extract the folder, run the configuration, go into the `src/` folder and install VMD.
+```bash
+cd Downloads/
+tar xvzf VMD_something.tar.gz
+cd VMD_something
+./config
+cd src
+```
+
+Now you should be raedy to go.
+
+# Getting started
+
+Download the [source file](). Move the `.tar.gz` archive into `QCB_course` and
+untar it with
+<p class="prompt prompt-shell">$ tar xvzf file.tar.gz <br>
+$ rm -f file.tar.gz</p>
+Now launch VMD:
+<p class="prompt prompt-shell">$ vmd</p> and you should have the following:
+<IMG class="displayed" src="../../img/tut1/vmd.png">
+
+If everything works, let's define a common playground.
+
+## Easy and fast recap
+There are a lot of amino acids out there.
+
+<IMG class="displayed" src="../../img/tut1/2iolmd.jpg" alt="everywhere">
+
+But only 20 of them are coded into our DNA. We will deal mainly with these residues,
+but it is not uncommon to have acetylated residues especially in the _termini_.
+
+"What is a _terminus_ or a residue or an amino acid?" I hear you ask.
+
+Amino acids are the building block of proteins. If _isolated_, an amino acid
+has an amine (-NH2)[^2] and a carboxyl (-COOH) group. If _linked_ with others to form
+a polypeptide, they lose a hydrogen from the N-terminal (amine group) and an OH from the C-terminal (carboxyl group) and we have a residue. We will usually use **residue** without this distinction. _Ça va sans dire_, the first and the last residue have to be capped with the proper terminal end since they are not linked
+from both sides.
+
+[^2]: Under biological conditions, the N-group is protonated (-NH3+)
 
 
-## Common Vocabulary
-what is an [aminoacid]()
+All amino acids have a Carbon, called carbon-alpha, where a functional group is
+attached. This group is specific to each amino acid and it is called **sidechain**,
+while the other (heavy) atoms, present in each residue, constitute the **backbone**.
 
-what is a [residue]()
+Below we have an **Alanine** with different segments highlighted that exemplifies
+the nomenclature just introduced.
 
-C- N- terminal
+<IMG class="displayed" src="../../img/tut1/src_img/recap_aminoacid.png" alt="amino_recap">
+<div align="center">
+a) Alanine amino acid in Licorice with the C-alpha shown. b) Residue of the same amino acid. <br>
+c) Backbone (bottom) and sidechain (top).
+</div>
+
+
+# Secondary structure
+
+
+
+
+---
 
 atom name/sidechain/backbone
 
@@ -111,10 +164,20 @@ C-$$\alpha$$
 
 ## Getting started
 
+## keyboard setting
+
+What are:
+- molid
+- repid
+- v
 
 # Visualising
 
 ## Images
+
+## Default style
+
+
 
 choose representation
 
@@ -133,10 +196,25 @@ basic stuff in Tcl
 
 
 
+# Exercise
+Downlod a structure from the [Protein Data Bank]() and
 
+### Summary of some useful commands
+To load the `.pdb` file:
+<p class="prompt prompt-tk">
+mol new file.pdb<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</p>
 
-## Summary of the codes
-
+For the representation
 
 
 
@@ -147,20 +225,8 @@ basic stuff in Tcl
 <p class="prompt prompt-tk"> tk </p>
 
 
-lol
 
-```tcl
-set i 0
-$i
-```
-
-```python
-for i in range(10):
-```
-
-
---
 
 # Further readings
-
+---
 # Notes
