@@ -99,6 +99,7 @@ tar xvzf VMD_something.tar.gz
 cd VMD_something
 ./config
 cd src
+make install
 ```
 
 Now you should be ready to go.
@@ -210,6 +211,7 @@ Modify the _Drawing Method_ from `Lines` to `Licorice`.
 More keyword for the selections can be found if click on the _Selection_ tab.
 
 <IMG class="displayed" src="../../img/tut1/selections.png" alt="" >
+Most of the keywords will be clearer in the next lessons, so don't be scared!
 
 As you can see, you can combine keywords with `and`, `or`, `not`.
 <p class="prompt prompt-question">
@@ -220,9 +222,21 @@ If you change your selection into `water`, nothing should happen.
 Visualise the protein backbone and the water.
 <p class="prompt prompt-question">Does your selection work? If not, why?</p>
 
+You can also use more complex selections! Let's make an example.
+Click on the `VMD Display`, press `1` and click on a oxygen atom of water. In the `Terminal` few lines should appear. Among them
+look for `index: XXX` (where `XXX` is an integer).
+Go back to the _Graphical Representation_ window and use `index XXX` as _Selected Atoms_. Create a new representation (`Create Rep` button) and use the following selection:
+`same residue as within 20 of (index XXX)`.
+
+<p class="prompt prompt-question">What happens if you don't write `same residue as`?</p>
 
 
-You can also use more complex selection
+Usually proteins have a secondary structure: $$\alpha$$-helices, $$\beta$$-sheets etc... It's hard to find them if we use only sticks.
+Delete all the representations you have and create a new one with
+the selection `all`.
+Now go to _Drawing Method_ and select _New Cartoon_.
+In addition, change also the _Coloring Method_ from _Name_ into _Secondary Structure_ (we are bored by the cyan colour!). The result:
+<IMG class="displayed" src="../../img/tut1/sec_str.png" alt="">
 
 
 ## Exercise
@@ -235,7 +249,7 @@ Create your custom representation of the protein, highlighting a particular resi
 
 
 # Further readings
-[VMD User's Guide](https://www.ks.uiuc.edu/Research/vmd/current/ug.pdf)
+1. [VMD User's Guide](https://www.ks.uiuc.edu/Research/vmd/current/ug.pdf)
 
 
 ---
