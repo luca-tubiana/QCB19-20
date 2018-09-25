@@ -196,6 +196,9 @@ You will have something like this:
 # Further readings
 [VMD User's Guide](https://www.ks.uiuc.edu/Research/vmd/current/ug.pdf)
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0eb988feab740e37a7ef5190d64f4f8cab51b0d7
 ---
 # Notes
