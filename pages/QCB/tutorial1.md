@@ -168,14 +168,14 @@ We will have three windows:
 In the `VMD Display` our system will be draw.
 `VMD Main` is a graphical interface for all the functionality we need.
 
-![vmd_main](../../img/tut1/src_img/vmd_main.png)
+<IMG class="displayed" src="../../img/tut1/src_img/vmd_main.png" alt="">
 
-`File`: load molecules, render them.
-`Molecule`: actions on the loaded molecules.
-`Graphics`: representation of the loaded structures.
-`Display`: option for the `VMD Display`.
-`Mouse`: actions that can be performed with the mouse.
-`Extension`: collection of modelling and analysis tools.
+`File`: to load molecules, render them.
+`Molecule`: to perform actions on the loaded molecules.
+`Graphics`: to  modify representation of the loaded structures.
+`Display`: to set option for the `VMD Display`.
+`Mouse`: to perform actions using the mouse.
+`Extension`: contains collection of modelling and analysis tools.
 `Help`: (really?).
 
 Let's load a file containing the coordinate of a protein with the extension `.pdb`.
@@ -188,13 +188,50 @@ You will have something like this:
 Now rotate the protein. Click on the `VMD Display` and press `R` and move the mouse with the left-button pressed.
 <p class="prompt prompt-question"> What if you press the right-button?</p>
 
+You can change the center of rotation by pressing `C` and selecting an atom as pivot.
+With `T` you can translate the molecule in order to better place it in the display, while with `S` you can zoom in and out (or use the scroll button). Keep on play with it!
 
--- rotate R
--- translate T
--- scale S
--- center C
+If you lose your molecule, press `=` or go to _Display -> Reset View_.
 
-= to reset the view
+
+For now we saw the protein as a bunch of lines with some red dots
+overthere.
+<p class="prompt prompt-question">What are these dots?</p>
+
+Using the nomenclature defined above, we can modify what is displayed. Go to _Graphics -> Representation_ and a new window appears.
+
+The representation style should be highlighted; if not, click on the line `Lines    Name     all`.
+Then go to the _Selected Atoms_ and write `protein and backbone`.
+You should have this.
+
+![change_sel](../../img/tut1/change_select.png)
+
+Modify the _Drawing Method_ from `Lines` to `Licorice`.
+More keyword for the selections can be found if click on the _Selection_ tab.
+
+<IMG class="displayed" src="../../img/tut1/selections.png" alt="" >
+
+As you can see, you can combine keywords with `and`, `or`, `not`.
+<p class="prompt prompt-question">
+What happens if you select `not protein`?</p>
+The _red dots_ are water molecules whose hydrogen are not resolved by the X-rays crystallography. This is why you do not have hydrogen in your protein (the colour code for H is white).
+If you change your selection into `water`, nothing should happen.
+
+Visualise the protein backbone and the water.
+<p class="prompt prompt-question">Does your selection work? If not, why?</p>
+
+
+
+You can also use more complex selection
+
+
+## Exercise
+
+Downlod a structure from the [Protein Data Bank](https://www.rcsb.org/) and download a molecule you like (or ask for hints).
+
+Create your custom representation of the protein, highlighting a particular residue in `Licorice`, ligands in `Licorice` or `VDW`.
+
+
 
 
 # Further readings
