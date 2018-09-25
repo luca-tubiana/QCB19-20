@@ -238,6 +238,9 @@ Now go to _Drawing Method_ and select _New Cartoon_.
 In addition, change also the _Coloring Method_ from _Name_ into _Secondary Structure_ (we are bored by the cyan colour!). The result:
 <IMG class="displayed" src="../../img/tut1/sec_str.png" alt="">
 
+The secondary structure is inferred by the 3D arrangement of the residues and the presence of *h-bonds*, a non covalent bond between a donor (a heavy atom with a Hydrogen) and an acceptor.
+[CHECK!!!!!!]
+
 
 ## Exercise
 
