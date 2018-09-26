@@ -18,7 +18,7 @@ play with it and a recap of what you will need.[^1]
 Practically, the machinery we are going to use can be exemplified
 in the following way.
 
-<IMG class="displayed" src="../img/tut1/md_machinery.png" alt="">
+<IMG class="displayed" src="../../img/tut1/md_machinery.png" alt="">
 
 In a nutshell, the ingredients we need are:
 - the coordinates of the system;
