@@ -13,6 +13,24 @@ play with it and a recap of what you will need.[^1]
 
 [^1]: This tutorial is adapted from [Using VMD](https://www.ks.uiuc.edu/Training/Tutorials/vmd/vmd-tutorial.pdf)
 
+### Overview
+
+Practically, the machinery we are going to use can be exemplified
+in the following way.
+
+<IMG class="displayed" src="../img/tut1/md_machinery.png" alt="">
+
+In a nutshell, the ingredients we need are:
+- the coordinates of the system;
+- the structure of the protein, related to the force field we use;
+- the force field parameters for the interactions;
+- a configuration file with the appropriate settings of the used algorithms
+- a software to integrate the Newton's equations
+- the trajectory: a collection of coordinates that follow the evolution of the system.
+
+We will rapidly see, some of the files in this lesson, but
+keep in mind this scheme, since it will be useful later!
+
 # Software
 Let's start from the basic. For this tutorial we will use [VMD](https://www.ks.uiuc.edu/Research/vmd/), a visualisation program
 that will allow us to render pretty images and analyse our simulations as well.

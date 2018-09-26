@@ -18,10 +18,6 @@ via scripting
 
 ---
 
-atom name/sidechain/backbone
-
-charged aminoacid- polar bubu
-
 what is a [secondary structure]()
 
 ## keyboard setting
