@@ -24,11 +24,11 @@ In a nutshell, the ingredients we need are:
 - the coordinates of the system;
 - the structure of the protein, related to the force field we use;
 - the force field parameters for the interactions;
-- a configuration file with the appropriate settings of the used algorithms
-- a software to integrate the Newton's equations
+- a configuration file with the appropriate settings of the used algorithms;
+- a software to integrate the Newton's equations;
 - the trajectory: a collection of coordinates that follow the evolution of the system.
 
-We will rapidly see, some of the files in this lesson, but
+We will rapidly see some of the files in this lesson, but
 keep in mind this scheme, since it will be useful later!
 
 # Software
@@ -40,7 +40,7 @@ with a simple registration. Choose the version `1.9.3` suitable for your operati
 
 
 # Bash
-The *Bourne Again SHell* (BASH) Let's have a quick overview of the basic of `bash` in the meanwhile.
+The *Bourne Again SHell* (bash) is a command-line interpreter that allows us to execute commands via text instructions. Let's have a quick overview of the basic of `bash` in the meanwhile.
 
 On Ubuntu type `ctrl-alt-T` in order to open a terminal. For macOS, you should find the **Terminal** in the _Applications/_ folder.
 For Windows users, use the lab computers.
@@ -204,11 +204,11 @@ You will have something like this:
 
 ![ubq](../../img/tut1/1ubq.png)
 
-Now rotate the protein. Click on the `VMD Display` and press `R` and move the mouse with the left-button pressed.
+Now rotate the protein. Click on the `VMD Display` and press `r` and move the mouse with the left-button pressed.
 <p class="prompt prompt-question"> What if you press the right-button?</p>
 
-You can change the center of rotation by pressing `C` and selecting an atom as pivot.
-With `T` you can translate the molecule in order to better place it in the display, while with `S` you can zoom in and out (or use the scroll button). Keep on play with it!
+You can change the center of rotation by pressing `c` and selecting an atom as pivot.
+With `t` you can translate the molecule in order to better place it in the display, while with `s` you can zoom in and out (or use the scroll button). Keep on play with it!
 
 If you lose your molecule, press `=` or go to _Display -> Reset View_.
 
@@ -237,10 +237,12 @@ What happens if you select `not protein`?</p>
 The _red dots_ are water molecules whose hydrogen are not resolved by the X-rays crystallography. This is why you do not have hydrogen in your protein (the colour code for H is white).
 If you change your selection into `water`, nothing should happen.
 
-Visualise the protein backbone and the water.
+**Visualise** the protein backbone and the water.
+
 <p class="prompt prompt-question">Does your selection work? If not, why?</p>
 
 You can also use more complex selections! Let's make an example.
+
 Click on the `VMD Display`, press `1` and click on a oxygen atom of water. In the `Terminal` few lines should appear. Among them
 look for `index: XXX` (where `XXX` is an integer).
 Go back to the _Graphical Representation_ window and use `index XXX` as _Selected Atoms_. Create a new representation (`Create Rep` button) and use the following selection:
@@ -256,8 +258,84 @@ Now go to _Drawing Method_ and select _New Cartoon_.
 In addition, change also the _Coloring Method_ from _Name_ into _Secondary Structure_ (we are bored by the cyan colour!). The result:
 <IMG class="displayed" src="../../img/tut1/sec_str.png" alt="">
 
-The secondary structure is inferred by the 3D arrangement of the residues and the presence of *h-bonds*, a non covalent bond between a donor (a heavy atom with a Hydrogen) and an acceptor.
-[CHECK!!!!!!]
+The secondary structure is inferred by the 3D arrangement of the residues and the presence of *h-bonds*, a non covalent bond between a donor (a heavy electronegative atom with a Hydrogen, usually `O-H`, `N-H`, `F-H`) and an acceptor (same kind of atoms not covalently bonded to the Hydrogen) and it is established upon geometric criteria.
+
+Here the colouring scheme for the secondary structure.
+
+<IMG class="displayed" src="../../img/tut1/vmd_struct.png" alt ="">     
+* T = hydrogen bonded turn (3, 4 or 5 turn)
+* E = extended strand in parallel and/or anti-parallel β-sheet conformation.
+* B = residue in isolated β-bridge (single pair β-sheet hydrogen bond formation)
+* H = 4-turn helix (α helix).
+* G = 3-turn helix (3<sub>10</sub> helix)
+* I = 5-turn helix (π helix)
+* C = coil (residues which are not in any of the above conformations).
+
+Now keep on playing with the colouring methods and representations. But **before** go to _Extension -> Visualization -> ViewMaster_. Click on `Create New`, so you have a representation to go back if you change too many things and you
+are not pleased with it.
+
+The choice of the settings depends on what you want to convey with your image.
+Once you are happy we can (and will) do two things:
+1. save our work, so we can reload the representation for future use;
+2. render and save a picture.
+
+To <u>save the representation</u>, click on _File -> Save Visualization State_, write a name for the file (usually with a `.vmd` extension) and save it.
+
+Now quit VMD and reload the representation with _File -> Load Visualization State_.
+
+Let's now <u>render</u>.
+First of all, we need to change the backgound colour since black is not suitable for printing.
+So go to _Graphics -> Colors.._ and change the _Display Backgound_ in `white`.
+
+Then remove the axis: _Display -> Axes -> off_.
+
+Probably your image is a bit pale. This is due to the `Depth Cueing`. Go to _Display -> Depth Cueing -> off_.
+If now it is too dark, turn the cuing on again and modify the parameter in _Display -> Display Settings..._ and change the _Cueing Mode_ in `Linear`. You can also play with the related parameters.
+
+Now if you go to _File -> Render -> Snapshot_ and _Start Render_,
+ you create an image.
+ Depending on your system, something will happen.
+
+But, in general, the image has a pretty low quality. Let's improve it!
+
+ First, in _Graphics -> Representation_ you can increase the resolution of each representation you have.
+ Then, change the _Material_ in _AOChalky_.
+ Finally go back to the rendering window and change the rendering engine in _Tachyon_.
+
+<IMG class="displayed" src="../../img/tut1/render.png" alt="">
+
+
+## Tcl scripting
+
+set
+puts
+
+
+You can also se
+<p class="prompt prompt-tk">
+% display </p>
+
+<p class="prompt prompt-tk">% display resize </p>
+
+
+atomselect
+
+for loops
+
+alignment of the protein
+
+## Trajectories
+
+load equilibration
+Align the Backbone
+update selection
+
+
+show multiple trajecotry
+
+
+
+
 
 
 ## Exercise
@@ -266,7 +344,8 @@ Downlod a structure from the [Protein Data Bank](https://www.rcsb.org/) and down
 
 Create your custom representation of the protein, highlighting a particular residue in `Licorice`, ligands in `Licorice` or `VDW`.
 
-
+## Bonus
+If you manage to complete the exercise, ask for a really small task.
 
 
 # Further readings
