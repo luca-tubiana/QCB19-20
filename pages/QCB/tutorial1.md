@@ -326,93 +326,160 @@ Let's move to the tcl basics:
 Note that to access the variable value you have to use the dollar sign `$`.
 
 You can also print strings:
-<p class="prompt prompt-tk">% puts "Hello, World! >.<"
+<p class="prompt prompt-tk">% puts "Hello, World! >.<" </p>
 
 Of course you can do simple arithmetics as below:
-
-
-You can also se
 <p class="prompt prompt-tk">
-% display <br>
+% expr 3 * 10 <br>
+% expr $a + 5 <br>
+ </p>
+To evaluate an instruction and assign its output to a variable you need  to enclose the command into square brackets `[  ]`.
+<p class="prompt prompt-tk">
+% set a [expr $a * 13.4] <br>
  </p>
 
+Common statements you will use are:
+* `for` loop:
+<p class="prompt prompt-tk">
+% for {set i 0} {$i < 10} {incr i} { <br>
+    puts "$i plus 1:\t[expr $i + 1]"  <br>
+} </p>
+* `if` clause:
+<p class="prompt prompt-tk">
+% if { 10 > 4 } { <br>
+    puts --nonewline "True " <br>
+    puts "statement!" <br>
+} </p>
+
+
+Let's check some VMD-specific commands. First let's resize the display.
 <p class="prompt prompt-tk">% display resize 600 600 </p>
+This is not the only  We saw already how to resize the display. For further info the `display` command, type:
+<p class="prompt prompt-tk">% display </p>
+The _help_ will be prompted out in red.
+You don't need to memorise all the commands!
+<p class="prompt prompt-attention">Read the output/errors! They are really useful to understand that happens.</p>
 
+Check what `molinfo` and `atomselect` do.
 
-atomselect
+Suppose we want to compute the number of residue in our protein.
 
-for loops
+First, we need to make a selection of the protein.
+<p class="prompt prompt-attention">Can you think about one atom present in all the residues?</p>
 
-alignment of the protein
+<p class="prompt prompt-tk">
+% set selection [atomselect top " Selection-here "] <br>
+% $selection num </p>
+
+Let's finally clear the workspace.
+<p class="prompt prompt-tk">% mol delete all </p>
 
 
 ## Trajectories
+The output of an MD simulation is a trajectory. Let's see what VMD can do with it.
 
-Load the `ubiquitin.psf` (a Protein Structure File), then right-click on the brand new molecule and select `Load Data Into Molecule`. Here you have to select the `equilibration.dcd` (a trajectory file in binary)
+# Equilibration
 
+Load the `ubiquitin.psf` (a Protein Structure File), then right-click on the brand new molecule and select `Load Data Into Molecule`. Here you have to select the `equilibration.dcd` (a trajectory file in binary) and `load all at once`.
 
+In the _VMD Main_ you can play with the trajectory.
 
+The ubiquitin wobbles a bit around. So let align all the frames in order to have the protein almost in the same position.
+How many frames do we have?
+<p class="prompt prompt-tk">molinfo top get numframes</p>
 
-Let's inspect the
+Let's comment the following script.
+<p class="prompt prompt-tk">
+% set nf [molinfo top get numframes] <br>
+% set all [atomselect top "all"] <br>
+% set ref_0 [atomselect top "protein and name CA" frame 0] <br>
+% set ref [atomselect top "protein and name CA"] <br>
+% for {set f 0 } {$f < $nf} {incr f} { <br>
+      $ref frame $f <br>
+      $all frame $f <br>
+      set M [measure fit $ref $ref_0] <br>
+      $all move $M <br>
+} </p>
 
-`molinfo top get numframes`
+Now we should have the protein almost in the same position for the whole trajectory. But still, the _movie_ is not smooth.
 
+In _Graphics -> Representation_ there is a tab we previously ignored: _Trajectory_.
 
-We can measure the radius of gyration of our protein.
+<IMG class="displayed" src="../../img/tut1/smooth_trj.png" alt="">
+
+Here we can play with the _Trajectory Smoothing Window Size_.
+VMD will perform a rolling average of the positions of the atoms
+(therefore we would see something weird if we use licorice, such as wrong methyl group arrangement.)
+The smoothing is applied to the representation is set. So if you have multiple reprs, check this option carefully.
+
+# Measuring quantities
+
+We used the command `measure` few lines ago. To have an idea of what you can actually _measure_, just type `measure` in the `Tcl/tk console`.
+
+As an example, let's compute the radius of gyration of our protein:
 
 $$R_g^2 = \frac{\sum_{i=1}^{N} m_i (\vec{r}_i - \vec{r}_{CM})^2 }{\sum_{i=1}^N m_i}$$
 
 It is a quantity that tells you how compact your protein is.
 In VMD there are primitives you can use to measure properties of your system and combine them to do deeper and fancier analysis.
 
-To have an idea of what you can measure, just type `measure` in the `Tcl/tk console`.
-
 The command we look for is `measure rgyr`.
 Type:
 <p class="prompt prompt-tk">
 % set calpha [atomselect top "alpha"] <br>
-% measure rgyr $calpha<p>
+% measure rgyr $calpha</p>
 
-Now compute with a script the radius of gyration for all the frames.
+Now compute with a script the radius of gyration for all the frames and save it into a file `my_first_script.tcl`
+<p class="prompt prompt-tk"> Solution not available  ;) <br> </p>
 
-<p class="prompt prompt-tk"> Solution not available <br> </p>
+Let's improve our script by printing the results into a file. We will need to add a command to open a writeable file:
+<p class="prompt prompt-tk"> set output_file [open 'eq_rgyr.dat' w] </p>
+and modify the `puts` command with:
+<p class="prompt prompt-tk">
+puts $output_file '$f\t$rgyr' </p>
+and, finally, we have to close the file:
+<p class="prompt prompt-tk"> close $output_file </p>
 
+We can plot the data using `gnuplot` (type it in a new shell), and then:
+<p class="prompt prompt-shell"> p "eq_rgyr.dat" w l </p>
 
+To quit from `gnuplot`, type `q` and `Enter`.
 
-``
+**Bonus**: What does pressing `2`, `3`, `4` in the `VMD Display` do?
 
+# Pulling
 
+Let's clear the workspace again `mol delete all` and load the `pulling.dcd` by using:
+<p class="prompt prompt-tk">
+mol new ubiquitin.psf <br>
+mol addfile pulling.dcd waitfor all </p>
 
-load pulling
+In this simulation, one end of the protein is pulled, while another atom is kept fixed. It can be a way to unfold a protein.
 
+Play the trajectory to see what happens.
 
-Align the Backbone with Tcl
+You can visualise multiple frames at ones. To do so,
+switch the representation to `New Cartoon` and in the _Trajectory_ tab modify the _Draw Multiple Frames_ from `now` to
+`0:10:99`. Modify now the colouring method in `Trajectory -> Timestep`.
 
+<IMG class="displayed" src="../../img/tut1/multiple_frame.png" alt=" ">
 
-smoothing trajectory
-<IMG class="displayed" src="../../img/tut1/smooth_trj.png" alt="">
+Now,  go to frame `0` and create two representation to
+ visualise water molecules around the protein.
+<u>For the protein</u>: colour the secondary structure and use `New Cartoon`
+<u>For the water</u>: select water residues within 3 of protein with a `VDW` _Draw Style_.
+Play the trajectory now.
+<p class="prompt prompt-attention">Do your water molecule have three atoms?</p>
+<p class="prompt prompt-attention">Is it the result you expect? </p>
 
+Go in the _Trajectory_ tab and select _Update Selection Every Frame_ and replay the trajectory.
+<p class="prompt prompt-attention">Did something change?</p>
 
-you can load multiple frames.
+Finally, we can modify `my_first_script.tcl` in order to apply it to this new trajectory.
+1. Change the output file name;
+2. launch the script with `source my_first_script.tcl`
 
-<IMG class="displayed" src="../../img/tut1/multiple_frame.png" alt="">
-
-Remove the representation and create a new one with protein in `New Cartoon`. Go to frame `0` and
-
-
-Use `2` to collect the end to end distance
-
-and then use a script to compute the  same distance and compare
-it with gnuplot.
-
-
-show multiple trajecotry
-
-
-
-
-
-
+Now plot the two radius of gyration.
 
 
 ## Exercise
