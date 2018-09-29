@@ -306,16 +306,37 @@ But, in general, the image has a pretty low quality. Let's improve it!
 
 
 ## Tcl scripting
+A feature of VMD is the presence of a `Tcl/Tk console`.
+Every thing that you can do with the graphical interface can be
+done with the command line.
 
-set
-puts
+To open the console go to _Extension -> Tcl/tk console_ and a new window pops up.
+
+Just to see if my previous statement was correct, let's type:
+<p class="prompt prompt-tk">
+% color Display Background black <br>
+</p>
+Did something happen?
+
+
+Let's move to the tcl basics:
+* to define a variable `set a 4`;
+* to print the variable value `puts $a`.
+
+Note that to access the variable value you have to use the dollar sign `$`.
+
+You can also print strings:
+<p class="prompt prompt-tk">% puts "Hello, World! >.<"
+
+Of course you can do simple arithmetics as below:
 
 
 You can also se
 <p class="prompt prompt-tk">
-% display </p>
+% display <br>
+ </p>
 
-<p class="prompt prompt-tk">% display resize </p>
+<p class="prompt prompt-tk">% display resize 600 600 </p>
 
 
 atomselect
@@ -324,14 +345,70 @@ for loops
 
 alignment of the protein
 
+
 ## Trajectories
 
-load equilibration
-Align the Backbone
-update selection
+Load the `ubiquitin.psf` (a Protein Structure File), then right-click on the brand new molecule and select `Load Data Into Molecule`. Here you have to select the `equilibration.dcd` (a trajectory file in binary)
+
+
+
+
+Let's inspect the
+
+`molinfo top get numframes`
+
+
+We can measure the radius of gyration of our protein.
+
+$$R_g^2 = \frac{\sum_{i=1}^{N} m_i (\vec{r}_i - \vec{r}_{CM})^2 }{\sum_{i=1}^N m_i}$$
+
+It is a quantity that tells you how compact your protein is.
+In VMD there are primitives you can use to measure properties of your system and combine them to do deeper and fancier analysis.
+
+To have an idea of what you can measure, just type `measure` in the `Tcl/tk console`.
+
+The command we look for is `measure rgyr`.
+Type:
+<p class="prompt prompt-tk">
+% set calpha [atomselect top "alpha"] <br>
+% measure rgyr $calpha<p>
+
+Now compute with a script the radius of gyration for all the frames.
+
+<p class="prompt prompt-tk"> Solution not available <br> </p>
+
+
+
+``
+
+
+
+load pulling
+
+
+Align the Backbone with Tcl
+
+
+smoothing trajectory
+<IMG class="displayed" src="../../img/tut1/smooth_trj.png" alt="">
+
+
+you can load multiple frames.
+
+<IMG class="displayed" src="../../img/tut1/multiple_frame.png" alt="">
+
+Remove the representation and create a new one with protein in `New Cartoon`. Go to frame `0` and
+
+
+Use `2` to collect the end to end distance
+
+and then use a script to compute the  same distance and compare
+it with gnuplot.
 
 
 show multiple trajecotry
+
+
 
 
 
