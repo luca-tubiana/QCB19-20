@@ -124,7 +124,7 @@ Now you should be ready to go.
 
 # Getting started
 
-Download the [source file](). Move the `.tar.gz` archive into `QCB_course` and
+Download the [source file](https://drive.google.com/file/d/15wLrJphNMTuK9CXExVK9J2qYc5PS7M6C/view?usp=sharing). Move the `.tar.gz` archive into `QCB_course` and
 untar it with
 <p class="prompt prompt-shell">$ tar xvzf file.tar.gz <br>
 $ rm -f file.tar.gz</p>
