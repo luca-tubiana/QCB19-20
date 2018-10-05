@@ -193,30 +193,20 @@ pdb ti dice dove mettere
 top ti dice come li puoi mettere
 psf ti dice come li hai messi
 
-What is a pdb
-- protein data Bank
-- definition = coordinates
-- REMARKS of lysozime/bpti
-- protonation state (pKa [^2]) / disulfite bond
+# PSF
 
-[^2]: what is pka
-- missing atoms/residues
 
+Each segment of the system not covalently bound to others must have a separate
+psf file.
 
 top file keyword:
 `RESI`
 `PRES`
 
 
-# what is a psf
-Each segment of the system not covalently bound to others must have a separate
-psf file.
+creazione del pdb/psf together - bpti
 
-
-creazione del pdb/psf together - lysozyme 'or' myoglobin:
-
-da soli : bpti
-
+let's make the psf od ubiquitin.
 
 
 ####### recap
