@@ -70,6 +70,35 @@ $$
 $$
 // U(\{x_i\}) = U_{bonded}(\{x_i\}; \{k_j\}) + U_{non bonded}(\{x_i\}; \{q_j, lj_k\}) //
 
+
+---
+<div class="row">
+    <div class="col-md-6">
+        $$
+
+\begin{left*}
+  U_{bonded} & = \sum k_{bond} (r - r_0)^2 \\
+   & + lol \\
+\end{left*}
+        $$
+<IMG src="../../img/tut2/test_bond.png" alt="">
+            </div>
+    <div class="col-md-6">
+        $$
+
+\begin{align*}
+  U_{bonded} & = \sum k_{bond} (r - r_0)^2 \\
+   & + lol \\
+\end{align*}
+        $$
+<IMG src="../../img/tut2/test_bond.png" alt="">
+        ###something else here
+    </div>
+</div>
+---
+
+![bond](../../img/tut2/test_bond.png)
+
 # How ff are made of
 the same substance of the dreams
 **Bunch of equation for the force field**

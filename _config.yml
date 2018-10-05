@@ -17,7 +17,7 @@ title: Still thinking about the title, soz!
 email: gianfranco.abrusci@unitn.it
 description: >- # this means to ignore newlines until "baseurl:"
   Aquaviva me genuit, tenet nunc Tridentum et Bononia me rapit.
-  Cano MD, ludenda folia librique.  
+  Cano MD, ludenda folia librique.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://gianfree.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: GianfQED
@@ -25,6 +25,10 @@ github_username:  gianfree
 #linkedin_username: gianfranco-abrusci-a1a1a72a
 # Build settings
 markdown: kramdown
+# Apply this change to _config.yml file
+kramdown:
+  # parse markdown inside block-level HTML tag
+  parse_block_html: true
 theme: minima
 plugins:
 
