@@ -30,42 +30,135 @@ that composes the $$U$$ is called **Force Field** (**ff** from now on).
 The idea behind **ffs** is to mimic the experimental behaviour of proteins with a
 potential for atoms that has a
 feasible computational cost.
-There are several force field available:
+There are several force fields available, such as:
 - CHARMm, AMBER for all-atom simulations;
 - Martini for coarse grained simulations.
 
-Each ff has its own functional form and its protocol to define parameters. The parameters, in fact, hide under the hood assumptions that make the functional formation viable for simulations. Using CHARMm parameters with an AMBER potential
-definition will lead you to unreliable results.
+Each ff has its own functional form and its protocol to define parameters. The parameters, in fact, hide under the hood assumptions that make the functional formation viable for simulations. Mixing CHARMm parameters with the AMBER potential,
+to mention two of the most popular ffs, will lead you to unreliable results.
 
 <p class="prompt prompt-attention">Do not mix parameters from different force
-fields!<p>
+fields!</p>
 
 Moreover, ff parameters evolve as more data and simulations are gathered.
 
 <p class="prompt prompt-attention">Check for the latest version of force fields!</p>
 We will mainly use CHARMm ff (version 36)
 
+In general, each force field has two components:
+$$ U_{ff} = U_{bonded} + U_{non~bonded} $$
 
-## PDB PSF
+As the pedices suggest,
 
-Newton's equation:
+$$
+\begin{align*}
+  U_{bonded} & = \sum k_{bond} (r - r_0)^2 \\
+   & + lol \\
+  & \phi(x,y) = \phi \left(\sum_{i=1}^n x_ie_i, \sum_{j=1}^n y_je_j \right)
+  = \sum_{i=1}^n \sum_{j=1}^n x_i y_j \phi(e_i, e_j) = \\
+  & (x_1, \ldots, x_n) \left( \begin{array}{ccc}
+      \phi(e_1, e_1) & \cdots & \phi(e_1, e_n) \\
+      \vdots & \ddots & \vdots \\
+      \phi(e_n, e_1) & \cdots & \phi(e_n, e_n)
+    \end{array} \right)
+  \left( \begin{array}{c}
+      y_1 \\
+      \vdots \\
+      y_n
+    \end{array} \right)
+\end{align*}
+$$
+// U(\{x_i\}) = U_{bonded}(\{x_i\}; \{k_j\}) + U_{non bonded}(\{x_i\}; \{q_j, lj_k\}) //
 
-Force field
+# How ff are made of
+the same substance of the dreams
+**Bunch of equation for the force field**
+
+# alanine with not CHARMM36.
+
+from alanine (**pic**) => alanine dipeptide (**pic**)
+
+// probably not - creazione dialanina (sia modding pdb che usando ALA + N-C-term)
+
+**DIALANINE pic**
+
+N Term - C term
+
+sneakpeak to the parameter files for dialanine
+
+Open PDB - PSF ( DEMO )
+
+Compute the dihedral angles
+
+
+## PDB PSF TOP files
+Analogia con le costruzioni/lego.
+pdb ti dice dove mettere
+top ti dice come li puoi mettere
+psf ti dice come li hai messi
 
 What is a pdb
+- protein data Bank
+- definition = coordinates
+- REMARKS of lysozime/bpti
+- protonation state (pKa [^2]) / disulfite bond
 
-what is a psf
-
-top/par
-
-bonds (covalent) disu/h-bonds
-
-# alalnine with not CHARMM36.
-- creazione dialanina (sia modding pdb che usando ALA + N-C-term)
+[^2]: what is pka
+- missing atoms/residues
 
 
+top file keyword:
+`RESI`
+`PRES`
 
-# fors
-creazione del pdb together - lizo/ubi
+
+# what is a psf
+Each segment of the system not covalently bound to others must have a separate
+psf file.
+
+
+creazione del pdb/psf together - lysozyme 'or' myoglobin:
 
 da soli : bpti
+
+
+
+####### recap
+
+pdb ok
+
+psf - info su struttura e cariche parziali =>
+dove stanno ste cariche > forma del potenziale
+
+inoltre il file top contiene:
+- internal coordinates
+- cmap
+- nbfix
+
+---
+
+
+1) recap of the problem - how to perform a simulation
+
+2) ff intro with functional form and equations
+
+// break dialanine (see pdb - psf) and play with it
+-- run 50 ns
+-- alignment for visualisation of trajectory
+-- ramachandran plot (phi psi angles definition)
+
+3) pdb from PDBank (choose structure)- analysis of REMARKS (Theoretical)
+(what kind of remarks we need )
+4) psf (theoretical) / .top (for gromacs) itp
+
+5) top (theoretical + open top file --- Download charmm36)
+what cmap is
+// creation of the psf file of btpi/lysozyme
+  -- what minimising the structure means
+// test launch in vacuum (minimisation) -- see bonvin
+
+
+6) parameter files
+
+
+bpti - case study from ks.uiuc; small; disu;
