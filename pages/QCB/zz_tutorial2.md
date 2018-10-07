@@ -9,15 +9,17 @@ mathjax: true
 In this session we will introduce the ingredients we need to perform a molecular dynamics simulation.
 It is a mesh up of information you can find scattered on different sources. [^1]
 
-[^1]: This tutorial is inspired by
-1.  [Using VMD](https://www.ks.uiuc.edu/Training/Tutorials/vmd/vmd-tutorial.pdf)
+[^1]: This tutorial is inspired by  [Source 1](),  [lol]() and [lol3]()
 
-## Getting ready
+
+### Getting ready
 For this tutorial, download the following [source file]()**AAAAAAA**.
 You should know how to untar, but let's remind it:
 <p class="prompt prompt-shell">$ tar xvzf tutorial2.tar.gz</p>
 
-### Overview
+-there should be A.pdb A.top, vacuum.namd bpti.commmon
+
+## Overview
 Let's recap the so called **MD machinery**.
 
 <IMG class="displayed" src="../../img/tut1/md_machinery.png" alt="">
@@ -82,12 +84,10 @@ within molecules:
 
 $$
 \begin{align*}
-  U_{non~bonded} & = \sum_{nb~pairs} \frac{q_i q_j}{4\pi\epsilon_0 r_{ij}}
-  + \Big[\frac{A_{ij}}{r_{ij}^{12}} + \frac{B_{ij}}{r_{ij}^6}\Big]\\
+  U_{non~bonded} & = \sum_{nb~pairs} \Big[ \frac{q_i q_j}{4\pi\epsilon_0 r_{ij}}
+  + \Big(\frac{A_{ij}}{r_{ij}^{12}} - \frac{B_{ij}}{r_{ij}^6}\Big)\Big]\\
 \end{align*}
 $$
-
--- plot on gnuplot --
 
 # Alanine dipeptide
 Alanine dipeptide is a small peptide usually used to study protein backbone
@@ -96,6 +96,10 @@ Alanine dipeptide is a small peptide usually used to study protein backbone
 
 <IMG class="displayed" src="../../img/tut2/alanine_dip.png" alt="">
 <div align="center"> ACE - ALA - NME </div>
+
+<p class="prompt prompt-question">How many carbon atoms are in the alanine dipeptide?<br>
+Are C atoms bonded with the same kind of atoms each time they appear?</p>
+
 
 A `pdb` and a `top` file for the alanine dipeptide is provided.
 Let's inspect the content of these files.
@@ -114,14 +118,14 @@ Let's run the simulation! It will take few minutes.
 <p class="prompt prompt-question">What does `>` and `&` do?</p>
 
 Try to use the `tail` command:
-<p class="prompt prompt-shell">$ tail -f *.log* </p>
+<p class="prompt prompt-shell">$ tail -f *.log#* </p>
 Use `ctrl-s` to stop the shell screen if it is too fast. To resume the scroll,
 use `ctrl-q`.
 
 After the simulation is completed, load with the `Tk console` in _VMD_
 the `pdb` and the trajectory.
-<p class="prompt prompt-tk">% mol new dip.top<br>
-mol addfile file.dcd waitfor all</p>
+<p class="prompt prompt-tk">% mol new dip.pdb<br>
+% mol addfile file.dcd waitfor all</p>
 
 Let's compute the dihedral angles $$\phi$$, whose definition is
 $$C_{i-1}-N_{i}-C\alpha_{i}-C_{i}$$, and $$\psi$$, dihedral defined by
@@ -136,12 +140,36 @@ We have already see a `pdb` file few moments ago.
 Let's go the [Protein Data Bank website](https://www.rcsb.org/) and search for the
 structure `4pti`.
 
+Let's give a brief overview of these columns
+- `serial`: integer associated to each atom;
+
+- `name`: `atom name` of each atom (see figure below);
+
+- `resname`: 3-letter code for protein, it can be a 4-letter code for fancy residues;
+
+- `chain`: 1-letter identifier for each chain in a pdb;
+
+- `x`, `y`, and  `z`: try to guess;
+
+- `occupancy`: usually `1.00`, it can be less than 1 if the structure is not univocally resolved;
+
+- `beta factor`: temperature $$\beta_i = \frac{8\pi^2}{3}~msf_i$$, it is related to the flexibility of the residue;
+
+- `element`.
+
+Regarding the atom names, they follow the _star_ convention:
+from $$\alpha$$ (of the Carbon $$\alpha$$) to $$\beta, \gamma, \delta$$...
+<IMG class="displayed" src="../../img/tut2/his.png" alt="">
+<p align="center"> Histidine, as a constellation.</p>
+<p class="prompt prompt-attention">PDB files have a fixed format. Do not
+modify them manually if you are unsure of the outcome!</p>
+
 Move the `pdb` file from `~/Download/` into `QCB_course/bpti/`.
 
 Let's open it (with ViM!). For sake of safety, use:
 <p class="prompt prompt-shell">$ vim -R 4pti.pdb</p>
 
-Let's search the keyword we already know. Type in the Vim_ `Normal mode`:
+Let's search the keyword we already know. Type in the _Vim_ `Normal mode`:
 `/ATOMS ` (note the white space after the `S`).
 
 `ATOMS`, `HETATM` define the rows in which atoms are written. The first is used
@@ -159,16 +187,27 @@ These are bonds between the sulfur `S` atoms of two close cysteins.
 Disulfide bonds play an important role in the folding and stability of some proteins,
 therefore you have to include them in your future structure.
 
+<p class="prompt prompt-question">Write down the resid of the disulfide bonds.</p>
+
 Load the pdb with _VMD_, and remove the water from the visualisation.
+Visualise in _Licorice_, if present, aspartic acids, glutammic acid, lysine and arginine.
+
 
 Visualise the disulfide bridges.
-<p class="prompt prompt-question">Does VMD create a link between 2 close sulfur atoms?</p>
+<p class="prompt prompt-question">Does VMD create a link between 2 close sulfur atoms? Is it "real"?</p>
 
-Let's write a new pdb without the water.
+Visualise the protein using _Beta_ as _Coloring method_.
+<IMG class="displayed" src="../../img/tut2/beta_factor.png" alt="">
+
+Let's write a new pdb without the water:
+
+* with `awk`;
+
+* within _VMD_:
 <p class="prompt prompt-tk">% set prot [atomselect top "protein"]<br>
-$prot writepdb only_bpti.pdb</p>
+% prot writepdb only_bpti.pdb</p>
 
-You should have successfully create a new `pdb` file.
+You should have (**not**) successfully create a new `pdb` file. Why?
 
 **NB**: Usually the water molecules in a `pdb` can play an important role in the
 protein biological function. In general, it is a good practice to keep them in
@@ -187,6 +226,7 @@ force field, and _structure_ for the `psf` file.
 
 The idea is to use the `top` file to construct the `psf` of our system.
 
+Open the `top_all36_prot.rtf` (again with _ViM_) in a read-only mode.
 # Top
 Analogia con le costruzioni/lego.
 pdb ti dice dove mettere
@@ -203,6 +243,33 @@ top file keyword:
 `RESI`
 `PRES`
 
+# (2) Embed the psfgen commands in this script
+package require psfgen
+# (3) Read topology file
+topology toppar/top_all22_prot.inp
+# (4) Build protein segment
+segment BPTI {
+#autoregenerate angles and dihedrals by default, NTER CTER
+pdb output/6PTI_protein.pdb
+}
+# (5)
+patch
+patch
+patch
+Patch protein segment
+DISU BPTI:5 BPTI:55
+DISU BPTI:14 BPTI:38
+DISU BPTI:30 BPTI:51
+# (6) Read protein coordinates from PDB file
+pdbalias atom ILE CD1 CD
+; # formerly "alias atom ..."
+coordpdb output/6PTI_protein.pdb BPTI
+
+# (9) Guess missing coordinates
+guesscoord
+# (10) Write structure and coordinate files
+writepsf output/bpti.psf
+writepdb output/bpti.pdb
 
 creazione del pdb/psf together - bpti
 
@@ -222,6 +289,49 @@ inoltre il file top contiene:
 - nbfix
 
 ---
+# NAMD configuration file for BPTI
+# molecular system
+structure output/bpti.psf
+# force field
+paratypecharmm on
+parameters toppar/par_all22_prot.inp
+exclude scaled1-4
+1-4scaling 1.0
+# approximations
+switching on
+switchdist 8
+cutoff 12
+pairlistdist 13.5
+margin 0
+stepspercycle 20
+#integrator
+timestep 1.0
+#output
+outputenergies 10
+outputtiming 100
+binaryoutput no
+# molecular system
+coordinates output/bpti.pdb
+#output
+outputname output/bpti
+dcdfreq 1000
+
+#protocol
+temperature 0
+reassignFreq 1000
+reassignTemp 25
+reassignIncr 25
+reassignHold 300
+#script
+minimize 1000
+run 20000
+
+
+---
+
+
+
+
 
 
 1) recap of the problem - how to perform a simulation
@@ -235,7 +345,20 @@ inoltre il file top contiene:
 
 3) pdb from PDBank (choose structure)- analysis of REMARKS (Theoretical)
 (what kind of remarks we need )
-4) psf (theoretical) / .top (for gromacs) itp
+4) psf (the
+
+
+
+
+
+
+
+
+
+
+
+
+  oretical) / .top (for gromacs) itp
 
 5) top (theoretical + open top file --- Download charmm36)
 what cmap is
