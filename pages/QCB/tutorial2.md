@@ -53,9 +53,9 @@ fields!</p>
 Moreover, ff parameters evolve as more data and simulations are gathered.
 
 <p class="prompt prompt-attention">Check for the latest version of force fields!</p>
-We will mainly use CHARMm ff (version 36)
+We will mainly use CHARMm ff (version 36).
 
-In general, each force field has two components (we are neglecting the dependence
+In general, each force field has two main parts (we are omitting the dependence
   on the coordinates and parameters that will be clear in the following):
 \$$ U_{ff} = U_{bonded} + U_{non~bonded} $$
 
