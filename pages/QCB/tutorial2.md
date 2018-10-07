@@ -13,7 +13,7 @@ It is a mesh up of information you can find scattered on different sources. [^1]
 
 
 ### Getting ready
-For this tutorial, download the following [source file]()**AAAAAAA**.
+For this tutorial, download the following [source file](https://github.com/GianFree/gianfree.github.io/raw/tut2/src_files/tutorial2.tar.gz).
 You should know how to untar, but let's remind it:
 <p class="prompt prompt-shell">$ tar xvzf tutorial2.tar.gz</p>
 
@@ -118,7 +118,7 @@ Let's run the simulation! It will take few minutes.
 <p class="prompt prompt-question">What does `>` and `&` do?</p>
 
 Try to use the `tail` command:
-<p class="prompt prompt-shell">$ tail -f *.log#* </p>
+<p class="prompt prompt-shell">$ tail -f *.log </p>
 Use `ctrl-s` to stop the shell screen if it is too fast. To resume the scroll,
 use `ctrl-q`.
 
