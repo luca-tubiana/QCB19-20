@@ -95,7 +95,7 @@ Alanine dipeptide is a small peptide usually used to study protein backbone
  _COOH_ obtains a methylamide _CH3NH_.
 
 <IMG class="displayed" src="../../img/tut2/alanine_dip.png" alt="">
-<div align="center"> ACE - ALA - NME </div>
+<p align="center"> ACE - ALA - NME </p>
 
 <p class="prompt prompt-question">How many carbon atoms are in the alanine dipeptide?<br>
 Are C atoms bonded with the same kind of atoms each time they appear?</p>
@@ -278,12 +278,14 @@ writepsf out.psf
 writepdb out.pdb
 ```
 If there are no errors, load first a _new_ molecule with the `psf` and then the
-`pdb` file. Check the N-ter and C-ter with respect to the patches in the top file.
+`pdb` file.
+
+<p class="prompt prompt-question">Check the N-ter and C-ter with respect to the patches in the top file.</p>
 
 You can also use _Extension -> Autopsf_ to generate the psf file, and most of the
 things will run behind the scene. ;)
 
-To check whether the psf is ok, let's run a small minimisation.
+To check whether the psf is ok, we can also run a small minimisation.
 
 NAMD used an improved version of the conjugate gradient.
 The aim of the minimisation is two-fold:
@@ -293,7 +295,7 @@ The aim of the minimisation is two-fold:
 To launch the minimisation, use the `minimise.namd` that have to be completed and launch it with:
 <p class="prompt prompt-shell">$ namd2 minimise.namd > bpti_min.log&</p>
 
-**NB**: single core it take >30min for 1kk steps.
+**NB**: with a single core it takes >30min for 1kk steps.
 
 Load the trajectory and have fun.
 
