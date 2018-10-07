@@ -198,8 +198,10 @@ Visualise the disulfide bridges.
 
 Visualise the protein using _Beta_ as _Coloring method_.
 <IMG class="displayed" src="../../img/tut2/beta_factor.png" alt="">
+<p class="prompt prompt-question">Does the colour scheme fit with your intuition?</p>
 
-Let's write a new pdb without the water:
+Let's write a new pdb without the water,  since it will be useful for the `psf` file.
+
 
 * with `awk`;
 
@@ -226,67 +228,68 @@ force field, and _structure_ for the `psf` file.
 
 The idea is to use the `top` file to construct the `psf` of our system.
 
+First of all, let's _list_ all the file inside this folder.
+As you can see, the topology files are divided into categories:
+_prot_, _lipid_, _na_...
+
 Open the `top_all36_prot.rtf` (again with _ViM_) in a read-only mode.
-# Top
-Analogia con le costruzioni/lego.
-pdb ti dice dove mettere
-top ti dice come li puoi mettere
-psf ti dice come li hai messi
+
+You will see a first part with the `MASS` definition, then the `RESI` keywords, and eventually the `PRES` keywords.
+
+This `top` file is like a dictionary, with all the possible words (`RESI`) you can
+use in your _sentence_ (i.e. *system*).
+
+The `PRES` are the so-called *patches* and they allow us to modify some residue if
+you have a different protonation state, want to combine two residues, add a terminus...
 
 # PSF
-
+The `PSF` file contains the information of your system structure and the charge
+information.
 
 Each segment of the system not covalently bound to others must have a separate
-psf file.
+psf file. For a single-chain protein in solution is trivial. You have also to write
+ different `psf` if your system consists of several units, i.e. a multimer.
 
-top file keyword:
-`RESI`
-`PRES`
+To write a `psf` file, we will use _VMD_ with the _Tk console_.
+You can write it as a script and load it in the tk console.
 
-# (2) Embed the psfgen commands in this script
+```tcl
+# load the namespace we need
 package require psfgen
-# (3) Read topology file
-topology toppar/top_all22_prot.inp
-# (4) Build protein segment
+# read the information from the topology file
+topology _correct_path_to_what_top_file_to_use?
+# build the protein segment with name BPTI
 segment BPTI {
+pdb _yours_.pdb
 #autoregenerate angles and dihedrals by default, NTER CTER
-pdb output/6PTI_protein.pdb
 }
-# (5)
-patch
-patch
-patch
-Patch protein segment
-DISU BPTI:5 BPTI:55
-DISU BPTI:14 BPTI:38
-DISU BPTI:30 BPTI:51
-# (6) Read protein coordinates from PDB file
+# Write down the patches we need to apply (What patches?
+Patchname _segmentName_:_resid_ _segmentName_:resid
+Patchname _segmentName_:_resid_ _segmentName_:resid
+Patchname _segmentName_:_resid_ _segmentName_:resid
+# using alias due to different atom name in pdb vs charmmff  
 pdbalias atom ILE CD1 CD
-; # formerly "alias atom ..."
-coordpdb output/6PTI_protein.pdb BPTI
+# readind the coordinates
+coordpdb _yours_.pdb BPTI
 
-# (9) Guess missing coordinates
+# guess missing coordinates: are there missing atoms?
 guesscoord
-# (10) Write structure and coordinate files
-writepsf output/bpti.psf
-writepdb output/bpti.pdb
+# write the structure and coordinate files
+writepsf out.psf
+writepdb out.pdb
+```
+If there are no errors, load first a _new_ molecule with the `psf` and then the
+`pdb` file. Check the N-ter and C-ter with respect to the patches in the top file.
 
-creazione del pdb/psf together - bpti
+To check whether the psf is ok, let's run a small minimisation.
 
-let's make the psf od ubiquitin.
+NAMD used an improved version of the conjugate gradient.
+The aim of the minimisation is two-fold:
+1. to remove the steric clashes that can be present when building a system adding elements;
+2. to _move_ your structure into the ideal one provided by the topology file, with equilibrium distances, angles...
 
-
-####### recap
-
-pdb ok
-
-psf - info su struttura e cariche parziali =>
-dove stanno ste cariche > forma del potenziale
-
-inoltre il file top contiene:
-- internal coordinates
-- cmap
-- nbfix
+To launch the minimisation, use the `minimise.namd` that have to be completed and launch it with:
+<p class="prompt prompt-shell">$ namd2 minimise.namd > bpti_min.log&</p>
 
 ---
 # NAMD configuration file for BPTI
@@ -326,48 +329,9 @@ reassignHold 300
 minimize 1000
 run 20000
 
+# Further Notes
+1. _PSFGen user guide_, already in your computer in the _VMD_ installation folder
+(plugin subfolder).
 
 ---
-
-
-
-
-
-
-1) recap of the problem - how to perform a simulation
-
-2) ff intro with functional form and equations
-
-// break dialanine (see pdb - psf) and play with it
--- run 50 ns
--- alignment for visualisation of trajectory
--- ramachandran plot (phi psi angles definition)
-
-3) pdb from PDBank (choose structure)- analysis of REMARKS (Theoretical)
-(what kind of remarks we need )
-4) psf (the
-
-
-
-
-
-
-
-
-
-
-
-
-  oretical) / .top (for gromacs) itp
-
-5) top (theoretical + open top file --- Download charmm36)
-what cmap is
-// creation of the psf file of btpi/lysozyme
-  -- what minimising the structure means
-// test launch in vacuum (minimisation) -- see bonvin
-
-
-6) parameter files
-
-
-bpti - case study from ks.uiuc; small; disu;
+# Notes
