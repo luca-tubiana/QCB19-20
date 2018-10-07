@@ -17,14 +17,14 @@ For this tutorial, download the following [source file](https://github.com/GianF
 You should know how to untar, but let's remind it:
 <p class="prompt prompt-shell">$ tar xvzf tutorial2.tar.gz</p>
 
-There should be two folders: `alanine-dip/` and `bpti`.
+There should be two folders: `alanine-dip/` and `bpti/`.
 
 ## Overview
 Let's recap the so called **MD machinery**.
 
 <IMG class="displayed" src="../../img/tut1/md_machinery.png" alt="">
 
-In today's tutorial, we will focus on the files that contains the information
+In today's tutorial, we will focus on the files that contain the information
 on the system we want to study.
 
 ## May the Force (field) be with you!
