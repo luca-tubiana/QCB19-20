@@ -9,7 +9,7 @@ mathjax: true
 In this session we will introduce the ingredients we need to perform a molecular dynamics simulation.
 It is a mesh up of information you can find scattered on different sources. [^1]
 
-[^1]: This tutorial is inspired by  [Source 1](),  [lol]() and [lol3]()
+[^1]: No reference at the moment.
 
 
 ### Getting ready
@@ -17,7 +17,7 @@ For this tutorial, download the following [source file]()**AAAAAAA**.
 You should know how to untar, but let's remind it:
 <p class="prompt prompt-shell">$ tar xvzf tutorial2.tar.gz</p>
 
--there should be A.pdb A.top, vacuum.namd bpti.commmon
+There should be two folders: `alanine-dip/` and `bpti`.
 
 ## Overview
 Let's recap the so called **MD machinery**.
@@ -263,15 +263,14 @@ segment BPTI {
 pdb _yours_.pdb
 #autoregenerate angles and dihedrals by default, NTER CTER
 }
-# Write down the patches we need to apply (What patches?
+# Write down the patches we need to apply (What patches?)
 Patchname _segmentName_:_resid_ _segmentName_:resid
 Patchname _segmentName_:_resid_ _segmentName_:resid
 Patchname _segmentName_:_resid_ _segmentName_:resid
 # using alias due to different atom name in pdb vs charmmff  
 pdbalias atom ILE CD1 CD
 # readind the coordinates
-coordpdb _yours_.pdb BPTI
-
+coordpdb _yours_.pdb BPTI ;# write the segname!!!!!
 # guess missing coordinates: are there missing atoms?
 guesscoord
 # write the structure and coordinate files
@@ -280,6 +279,9 @@ writepdb out.pdb
 ```
 If there are no errors, load first a _new_ molecule with the `psf` and then the
 `pdb` file. Check the N-ter and C-ter with respect to the patches in the top file.
+
+You can also use _Extension -> Autopsf_ to generate the psf file, and most of the
+things will run behind the scene. ;)
 
 To check whether the psf is ok, let's run a small minimisation.
 
@@ -291,43 +293,10 @@ The aim of the minimisation is two-fold:
 To launch the minimisation, use the `minimise.namd` that have to be completed and launch it with:
 <p class="prompt prompt-shell">$ namd2 minimise.namd > bpti_min.log&</p>
 
----
-# NAMD configuration file for BPTI
-# molecular system
-structure output/bpti.psf
-# force field
-paratypecharmm on
-parameters toppar/par_all22_prot.inp
-exclude scaled1-4
-1-4scaling 1.0
-# approximations
-switching on
-switchdist 8
-cutoff 12
-pairlistdist 13.5
-margin 0
-stepspercycle 20
-#integrator
-timestep 1.0
-#output
-outputenergies 10
-outputtiming 100
-binaryoutput no
-# molecular system
-coordinates output/bpti.pdb
-#output
-outputname output/bpti
-dcdfreq 1000
+**NB**: single core it take >30min for 1kk steps.
 
-#protocol
-temperature 0
-reassignFreq 1000
-reassignTemp 25
-reassignIncr 25
-reassignHold 300
-#script
-minimize 1000
-run 20000
+Load the trajectory and have fun.
+
 
 # Further Notes
 1. _PSFGen user guide_, already in your computer in the _VMD_ installation folder
