@@ -216,7 +216,7 @@ protein biological function. In general, it is a good practice to keep them in
 your final system.
 
 ## Topology: .psf and .top in CHARMm
-Let's download the latest version of the [CHARMm ff](mackerell.umaryland.edu/charmm_ff.shtml)
+Let's download the latest version of the [CHARMm ff](https://mackerell.umaryland.edu/charmm_ff.shtml)
 and extract it into our `QCB_course/` folder.
 
 From now on, we will use _topology_ for referring to the `top_*` files of the
