@@ -264,9 +264,9 @@ pdb _yours_.pdb
 #autoregenerate angles and dihedrals by default, NTER CTER
 }
 # Write down the patches we need to apply (What patches?)
-_Patchname_ _segmentName_:_resid_ _segmentName_:resid
-_Patchname_ _segmentName_:_resid_ _segmentName_:resid
-_Patchname_ _segmentName_:_resid_ _segmentName_:resid
+patch _Patchname_ _segmentName_:_resid_ _segmentName_:resid
+patch _Patchname_ _segmentName_:_resid_ _segmentName_:resid
+patch _Patchname_ _segmentName_:_resid_ _segmentName_:resid
 # using alias due to different atom name in pdb vs charmmff  
 pdbalias atom ILE CD1 CD
 # readind the coordinates
