@@ -115,7 +115,7 @@ Let's open it as well.
 Let's run the simulation! It will take few minutes.
 <p class="prompt prompt-shell">$ namd2 vacuum.namd > ala_vacuum.log &</p>
 
-<p class="prompt prompt-question">What does `>` and `&` do?</p>
+<p class="prompt prompt-question">What does > and & do?</p>
 
 Try to use the `tail` command:
 <p class="prompt prompt-shell">$ tail -f *.log </p>
