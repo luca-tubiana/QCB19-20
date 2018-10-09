@@ -36,7 +36,8 @@ echo "This is a bash script."
 2. [Tria sunt genera fileorum](/pages/QCB/tutorial2)
 
 
-
+# Useful (hopefully) commands
+- [Bash and ViM cheatsheet](/pages/cs)
 
 # Further readings
 - [A paper on how to organise a computational biology project](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1000424)
