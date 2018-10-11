@@ -1,6 +1,7 @@
 ---
 layout: page
 author: Gianfranco Abrusci
+permalink: /pages/1111
 mathjax: true
 ---
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
@@ -9,31 +10,89 @@ mathjax: true
 In this session we will build the setup, analyse the configuration file and
 perform a small analysis of a system.[^1]
 
-[^1]: This tutorial is based on [NAMD tutorial]()
+[^1]: This tutorial is based on [NAMD tutorial]() and [BPTI case study]()
 
 ### Getting ready
-For this tutorial, download the following [source file](FIXME).
+For this tutorial, download the following
+#FIXME: add source [source file]().
 You should know how to untar, but let's remind it:
 <p class="prompt prompt-shell">$ tar xvzf tutorial2.tar.gz</p>
 
+#FIXME: add folderlist
 There should be two folders: `foo/` and `bar/`.
 
-TODO
-
-
-FIXME lol 
-
+## Biological case study
 
 ## Overview
 Let's recap the so called **MD machinery**.
 
-**CHANGE IMAGE TO MAKE A QUIZ**
+#TODO: CHANGE IMAGE TO MAKE A QUIZ
 <IMG class="displayed" src="../../img/tut1/md_machinery.png" alt="">
 
 ## PSF
+
 Autopsf gen
 
+move the protein in the middle
+minmax of the protein.
+
+
+## Overview of what algoritms we use for simulation
+
+- velocity verlet:
+  1. force from ff (non bonded?!?)
+  2. time step
+  3. initialise velocity
+
+
+- simulate the correct ensemble:
+  1. thermostat (langevin-cenni)
+  2.
+
+
 ## Implicit solvent
+- psf with autopsf
+#TODO: check the protonation state of LYS etc
+
+- create the configuration file:
+    - time step
+    - group
+    - exclude 1-4
+    -
+
+- use the toppar file download
+
+- check energy with namd plot
+
+- printing out velocities for MB/specific heat.
+
+
+(while the simulation is running, go on)
+
+## Solvation box
+
+- create the psf of the system solvation + ionisation
+why do we solvate/ionise the system
+
+- PBC
+
+- sovate with tkconsole
+
+- ionise with GUI
+
+- launch with more cores/cluster
+
+-
+
+-
+
+
+
+## deeper analysis in the analysis tutorial
+
+comparison of the results
+
+<!--
 ## May the Force (field) be with you!
 
 The idea is to solve the Newton's equations of motion for all the atoms in the
@@ -301,15 +360,10 @@ The aim of the minimisation is two-fold:
 
 To launch the minimisation, use the `minimise.namd` that have to be completed and launch it with:
 <p class="prompt prompt-shell">$ namd2 minimise.namd > bpti_min.log&</p>
-
-**NB**: with a single core it takes >30min for 1kk steps.
-
-Load the trajectory and have fun.
-
-
+-->
 # Further Notes
-1. _PSFGen user guide_, already in your computer in the _VMD_ installation folder
-(plugin subfolder).
 
 ---
 # Notes
+
+#FIXME: fix notes

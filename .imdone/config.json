@@ -22,7 +22,11 @@
   },
   "lists": [
     {
-      "name": "tutorial3",
+      "name": "TODO",
+      "hidden": false
+    },
+    {
+      "name": "FIXME",
       "hidden": false
     }
   ],
