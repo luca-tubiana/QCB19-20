@@ -20,7 +20,12 @@
       "REVIEW"
     ]
   },
-  "lists": [],
+  "lists": [
+    {
+      "name": "tutorial3",
+      "hidden": false
+    }
+  ],
   "marked": {
     "gfm": true,
     "tables": true,

@@ -12,11 +12,17 @@ perform a small analysis of a system.[^1]
 [^1]: This tutorial is based on [NAMD tutorial]()
 
 ### Getting ready
-For this tutorial, download the following [source file](FIX).
+For this tutorial, download the following [source file](FIXME).
 You should know how to untar, but let's remind it:
 <p class="prompt prompt-shell">$ tar xvzf tutorial2.tar.gz</p>
 
 There should be two folders: `foo/` and `bar/`.
+
+TODO
+
+
+FIXME lol 
+
 
 ## Overview
 Let's recap the so called **MD machinery**.
@@ -27,7 +33,7 @@ Let's recap the so called **MD machinery**.
 ## PSF
 Autopsf gen
 
-## Implicit solvent 
+## Implicit solvent
 ## May the Force (field) be with you!
 
 The idea is to solve the Newton's equations of motion for all the atoms in the
