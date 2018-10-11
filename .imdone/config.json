@@ -17,10 +17,17 @@
       "XXX",
       "IDEA",
       "NOTE",
-      "REVIEW"
+      "REVIEW",
+      "MARK",
+      "HELP"
     ]
   },
-  "lists": [],
+  "lists": [
+    {
+      "name": "HELP",
+      "hidden": false
+    }
+  ],
   "marked": {
     "gfm": true,
     "tables": true,
@@ -28,5 +35,11 @@
     "pedantic": false,
     "smartLists": true,
     "langPrefix": "language-"
-  }
+  },
+  "sync": {
+    "id": "5bbfbad6cd23ba6216b05010",
+    "name": "GianFree/gianfree.github.io",
+    "useImdoneioForPriority": true
+  },
+  "noHelp": true
 }
