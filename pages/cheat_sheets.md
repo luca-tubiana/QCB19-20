@@ -3,9 +3,8 @@ layout: page
 permalink: /pages/cs
 ---
 
-### Cheatsheet
 Here you can find a small list of command you can use for `bash` and for _Vim_.
-
+It is still work in progress, so please be kind.
 
 # Bash
 

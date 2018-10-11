@@ -39,6 +39,8 @@ minmax of the protein.
 
 ## Overview of what algoritms we use for simulation
 
+- TIME SCALE
+
 - velocity verlet:
   1. force from ff (non bonded?!?)
   2. time step
@@ -58,14 +60,23 @@ minmax of the protein.
     - time step
     - group
     - exclude 1-4
-    -
+
+- output commands
+
+
 
 - use the toppar file download
 
+- analysis of the log file
+
 - check energy with namd plot
+    - temperature
+    - potential energy
+
+
 
 - printing out velocities for MB/specific heat.
-
+#TODO: see namd tutorial
 
 (while the simulation is running, go on)
 
@@ -82,9 +93,23 @@ why do we solvate/ionise the system
 
 - launch with more cores/cluster
 
--
+- awk for TIMING/BENCHMARK
+
+- awk to extract info
 
 -
+
+
+# BLACKBOX section
+The idea is to group the commands that we don't want to explain into
+a section called black box.
+We can put here all the instructions not mandatory for the computation
+that they will be explained in the next theoretical lessons, such as:
+- neighbour List
+- switching potential
+- PME
+- rigid bonds
+- 
 
 
 
@@ -362,7 +387,7 @@ To launch the minimisation, use the `minimise.namd` that have to be completed an
 <p class="prompt prompt-shell">$ namd2 minimise.namd > bpti_min.log&</p>
 -->
 # Further Notes
-
+1. [NAMD Userguide]()
 ---
 # Notes
 
