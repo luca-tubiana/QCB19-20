@@ -86,6 +86,14 @@ minmax of the protein.
 - use the toppar file download
 
 - analysis of the log file (part I:
+One of the output of the simulation is the logfile.
+Let's open it. There are a lot of information written in it, such as
+the initialisation of the system, checking the number of atoms, the existence of the
+files, the correctness of the parameters file, the recap of the setup defined
+in the configuration file.
+
+Let's open the logfile with _ViM_ and search the word `Benchmark`.
+
     - The information on the simulation
     - benchmark info (check the difference in benckmark when solvated with 1/2/3/4 cores for sims of 1000min+1000 running)
 
@@ -121,11 +129,65 @@ why do we solvate/ionise the system
 
 - initialisation of velocity uniform and/or MB
 
-- namd2 -p1 -p2 -p3 -p4
+To launch `namd` using more cores you can use:
+<p class="prompt prompt-shell">$ namd2 -pN conf.namd > lognameN.log &</p>
+where `N` is the number of cores available.
+Launch the same simulation using 1,2,3,4 processes (change also the logfile name).
+In general you should be able to run with `4` cores,
+but remember that your computer needs some resources for the
+opetating system. Therefore, you may not see an increase in the performances
+for 3 processes to 4.
+<p class="prompt prompt-attention">
+1) The output will be overwritten.<br>
+2) If you want to do a for-loop modify the command above (hint:`&`)
+</p>
+
 ---
-# awk detour
-- awk loops over all the lines; NF number of fields, NR number of rows
-- $0 all lines, $i is the field value (separation done with )
+
+# AWK detour
+_AWK_ is a scripting language to manipulate text. It is particular useful for small
+tasks that do not rqeuire a lot of lines of code.
+
+The basic syntax of an _awk_ instruction is:
+`awk '{some actions}' < input.file`.
+_awk_ will loop over the lines of the file and perform the actions you wrote.
+The default variables you will need are:
+- `NF`: number of fields (i.e. columns separated as default by blank spaces);
+- `NR`: number of rows (i.e. lines), the counter over which the default
+ loop is performed;
+- `$0`: a whole line;
+- `$i`: the i-th field;
+Moreover you can do operation at the before (`BEGIN`) and after (`END`)
+ the main loop.
+First, create a file with 1 column filled with numbers from 1 to 100.
+**Hint**: use a bash for-loop.
+
+Then, let's compute the sum and the average.
+```bash
+awk 'BEGIN{sum=0} {sum += $1} END{print "sum:", sum, "\navg:", sum}' < gauss_spicciame_casa.dat
+```
+See _Notes_ for more information and fancy things[^2].
+
+[^2]: Rtfm on `man awk`, or use Google.
+
+---
+
+Now that we know a bit of _awk_, let's use it for our purposes.
+First let's see how different numbers of cores affect the computation.
+<p class="prompt prompt-shell">$ grep "Benchmark" logname1.log</p>
+
+Let's see what is inside.
+
+From these lines we can extract the information we need sending them as input
+for _awk_ by using `|`.
+
+<p class="prompt prompt-shell">$ grep "Benchmark" logname1.log |
+ awk '{print $X, $Y, $Z}' > benchmark.dat</p
+
+Of course we can do the same for all the 4 logfiles.
+<p class="prompt prompt-question">When do you have the ""best"" perfomances?</p>
+
+
 ---
 - awk for TIMING/BENCHMARK
 - using different cores, extract info of Benchmark with `for i; do grep "" $i| awk`
