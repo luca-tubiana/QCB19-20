@@ -121,14 +121,20 @@ why do we solvate/ionise the system
 
 - initialisation of velocity uniform and/or MB
 
-- rmsd (should I put it at the beginning)
-
+- namd2 -p1 -p2 -p3 -p4
+---
 # awk detour
 - awk loops over all the lines; NF number of fields, NR number of rows
 - $0 all lines, $i is the field value (separation done with )
-
+---
 - awk for TIMING/BENCHMARK
+- using different cores, extract info of Benchmark with `for i; do grep "" $i| awk`
+
+
+
 - awk to extract info
+
+- rmsd (should I put it at the beginning)
 
 # BLACKBOX section
 The idea is to group the commands that we don't want to explain into
