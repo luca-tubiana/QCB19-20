@@ -16,51 +16,79 @@ perform a small analysis of a system.[^1]
 For this tutorial, download the following
 #FIXME: add source [source file]().
 You should know how to untar, but let's remind it:
-<p class="prompt prompt-shell">$ tar xvzf tutorial2.tar.gz</p>
+<p class="prompt prompt-shell">$ tar xvzf tutorial3.tar.gz</p>
 
 #FIXME: add folderlist
 There should be two folders: `foo/` and `bar/`.
 
-## Biological case study
-What is BPTI? Historical and biological background.
+## BPTI
+The _bovine pancreatic trypsin inhibitor_ is a small protein extensively studied
+since the dawn of Molecular Dynamics. It inhibits the enzyme trypsin, responsible
+for the protein digestion.
 
-McCammon 1977
+
+<IMG class="displayed" src="../../img/tut3/bpti.png" alt="">
+
+It was the first macromolecule of biological relevance simulated with MD with the
+seminal paper  _Dynamics of folded proteins_ by McCammon, Gelin and Karplus.
+
+#TODO: method of inhibition
 
 ## Overview
 Let's recap the so called **MD machinery**.
 
-#TODO: CHANGE IMAGE TO check if they remember the file
-<IMG class="displayed" src="../../img/tut1/md_machinery.png" alt="">
+<p class="prompt prompt-question">What files do we need?</p>
+<IMG class="displayed" src="../../img/tut3/quiz.png" alt="">
+<!-- <IMG class="displayed" src="../../img/tut3/quiz_done.png" alt=""> -->
 
-## Key concepts of simulation:
+##
+Before launching a simulation, let's see what are the time scale we can
+investigate. For now, with _MD_ we mean _all-atom MD_.
 
-- TIME SCALE
+<IMG class="displayed" src="../../img/tut3/time_scale.png" alt="">
 
+From the picture above we see that we are constrained both spatially and in the
+simulated time, since the idea is to publish and we don't have infinite resources
+(someone pays the bill for the electric power used by computer).
 
-Question to ask before running the simulation:
-1. What process I want to investigate?
-    - i.e. exchange of proton for the cleavage of bpti and trypsin (introduced in
-      the BPTI overview): NO because of bond breaking.
-2. Do I have enough resources? you hope so
+When you decide to perform a simulation some questions should be answered in advance:
+1. What process I want to investigate? Is it feasible?
+2. Do I have enough resources? (in general you hope so)
 3. What level of detail do I need?
 
 We will keep these question in mind, but we will ignore them for now.
 
-## PSF
-Let's start from the pdb of the protein alone. Recap of PSF
-
-create the psf with
-Autopsf gen
-#TODO: check the protonation state of LYS etc
-
-move the protein in the middle
-
-minmax of the protein.
 
 
-## Overview of what algoritms we use for simulation
+## MD in a nutshell
+We have already seen that performing a molecular dynamics simulation means solving
+numerically the Newton's equations of motion for each atoms in order to evolve the
+system at the next time step.
 
+To do so, we usually employ the (velocity-)Verlet algorithm, described below.
 
+<p align="center">
+$$
+\begin{align*}
+    r_i(t+\Delta t) & = r_i(t) + v_i(t) \Delta t+ \frac{\Delta t^2}{2m_i}F_i(t)\\
+    v_i(t+\Delta t) & = v_i(t) + \frac{\Delta t}{2m_i}\big[F_i(t+\Delta t) + F_i(t)\big]\\
+\end{align*}
+$$
+</p>
+
+<p class="prompt prompt-question">What information do we need to implement the
+Verlet algorithm?</p>
+
+We will need to provide:
+1. the initial positions of the atoms in the system;
+2. the potential energy to compute the forces from;
+3. the masses of the atoms;
+4. the time step of integration;
+5. the initial velocity of atoms.
+
+We already saw the first three requirements.
+
+The **time step** 
 - velocity verlet:
   1. force from ff (non bonded?!?)
   2. time step: H vibration as period of 10 fs
@@ -71,6 +99,16 @@ minmax of the protein.
   1. thermostat (langevin-cenni: drag force and stochastic force) to fix NVT
   2. barostat to have NpT
   3. NVT again to reduce perturbation of the system.
+
+### PSF
+Let's start from the pdb of the protein alone. Recap of PSF
+
+create the psf with
+Autopsf gen
+
+move the protein in the middle
+
+minmax of the protein.
 
 ## Implicit solvent
 - psf with autopsf
@@ -93,7 +131,6 @@ files, the correctness of the parameters file, the recap of the setup defined
 in the configuration file.
 
 Let's open the logfile with _ViM_ and search the word `Benchmark`.
-
     - The information on the simulation
     - benchmark info (check the difference in benckmark when solvated with 1/2/3/4 cores for sims of 1000min+1000 running)
 
@@ -112,9 +149,21 @@ Let's open the logfile with _ViM_ and search the word `Benchmark`.
 
 ## Solvation box
 
-- create the psf of the system solvation + ionisation
+- create the psf of the system solvation + 7.5 Angstrom + ionisation
+
 why do we solvate/ionise the system
 
+- minimisation
+
+- 100 ps of position restrained
+
+- simulation NVT
+
+For
+
+- simulation npt as equilibration
+
+- nvt again
 #TODO: how long does explicit sim take?
 
 - PBC
@@ -130,7 +179,7 @@ why do we solvate/ionise the system
 - initialisation of velocity uniform and/or MB
 
 To launch `namd` using more cores you can use:
-<p class="prompt prompt-shell">$ namd2 -pN conf.namd > lognameN.log &</p>
+<p class="prompt prompt-shell">$ namd2 -pN conf.namd > lognameN.log & </p>
 where `N` is the number of cores available.
 Launch the same simulation using 1,2,3,4 processes (change also the logfile name).
 In general you should be able to run with `4` cores,
@@ -174,7 +223,7 @@ See _Notes_ for more information and fancy things[^2].
 
 Now that we know a bit of _awk_, let's use it for our purposes.
 First let's see how different numbers of cores affect the computation.
-<p class="prompt prompt-shell">$ grep "Benchmark" logname1.log</p>
+<p class="prompt prompt-shell">$ grep "Benchmark" logname1.log </p>
 
 Let's see what is inside.
 
@@ -182,7 +231,7 @@ From these lines we can extract the information we need sending them as input
 for _awk_ by using `|`.
 
 <p class="prompt prompt-shell">$ grep "Benchmark" logname1.log |
- awk '{print $X, $Y, $Z}' > benchmark.dat</p
+ awk '{print $X, $Y, $Z}' > benchmark.dat </p>
 
 Of course we can do the same for all the 4 logfiles.
 <p class="prompt prompt-question">When do you have the ""best"" perfomances?</p>
@@ -485,7 +534,8 @@ To launch the minimisation, use the `minimise.namd` that have to be completed an
 <p class="prompt prompt-shell">$ namd2 minimise.namd > bpti_min.log&</p>
 -->
 # Further Notes
-1. [NAMD Userguide]()
+1. [NAMD User guide]()
+2. Molecular Modeling of Proteins, edited by Andreas Kukol.
 ---
 # Notes
 
