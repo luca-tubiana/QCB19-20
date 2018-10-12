@@ -22,60 +22,82 @@ You should know how to untar, but let's remind it:
 There should be two folders: `foo/` and `bar/`.
 
 ## Biological case study
+What is BPTI? Historical and biological background.
+
+McCammon 1977
 
 ## Overview
 Let's recap the so called **MD machinery**.
 
-#TODO: CHANGE IMAGE TO MAKE A QUIZ
+#TODO: CHANGE IMAGE TO check if they remember the file
 <IMG class="displayed" src="../../img/tut1/md_machinery.png" alt="">
 
-## PSF
+## Key concepts of simulation:
 
+- TIME SCALE
+
+
+Question to ask before running the simulation:
+1. What process I want to investigate?
+    - i.e. exchange of proton for the cleavage of bpti and trypsin (introduced in
+      the BPTI overview): NO because of bond breaking.
+2. Do I have enough resources? you hope so
+3. What level of detail do I need?
+
+We will keep these question in mind, but we will ignore them for now.
+
+## PSF
+Let's start from the pdb of the protein alone. Recap of PSF
+
+create the psf with
 Autopsf gen
+#TODO: check the protonation state of LYS etc
 
 move the protein in the middle
+
 minmax of the protein.
 
 
 ## Overview of what algoritms we use for simulation
 
-- TIME SCALE
 
 - velocity verlet:
   1. force from ff (non bonded?!?)
-  2. time step
+  2. time step: H vibration as period of 10 fs
   3. initialise velocity
 
 
 - simulate the correct ensemble:
-  1. thermostat (langevin-cenni)
-  2.
-
+  1. thermostat (langevin-cenni: drag force and stochastic force) to fix NVT
+  2. barostat to have NpT
+  3. NVT again to reduce perturbation of the system.
 
 ## Implicit solvent
 - psf with autopsf
-#TODO: check the protonation state of LYS etc
+#TODO: how long does the simulation take?
 
 - create the configuration file:
     - time step
     - group
     - exclude 1-4
 
-- output commands
-
-
+- output commands (computation of energies is expensive >100 ts)
 
 - use the toppar file download
 
-- analysis of the log file
+- analysis of the log file (part I:
+    - The information on the simulation
+    - benchmark info (check the difference in benckmark when solvated with 1/2/3/4 cores for sims of 1000min+1000 running)
 
 - check energy with namd plot
     - temperature
     - potential energy
+    - these quantities equilibrate faster than the protein (#TODO: check). compare with rmsd
 
-
+- initialisation of velocity uniform and/or MB
 
 - printing out velocities for MB/specific heat.
+
 #TODO: see namd tutorial
 
 (while the simulation is running, go on)
@@ -85,20 +107,28 @@ minmax of the protein.
 - create the psf of the system solvation + ionisation
 why do we solvate/ionise the system
 
+#TODO: how long does explicit sim take?
+
 - PBC
 
-- sovate with tkconsole
+- solvate with tkconsole
 
 - ionise with GUI
 
-- launch with more cores/cluster
+- launch with more cores.(probably reduce cutoff to 9 to have a smaller box)
+
+- error on the temperature/fluctuations
+
+- initialisation of velocity uniform and/or MB
+
+- rmsd (should I put it at the beginning)
+
+# awk detour
+- awk loops over all the lines; NF number of fields, NR number of rows
+- $0 all lines, $i is the field value (separation done with )
 
 - awk for TIMING/BENCHMARK
-
 - awk to extract info
-
--
-
 
 # BLACKBOX section
 The idea is to group the commands that we don't want to explain into
@@ -106,15 +136,15 @@ a section called black box.
 We can put here all the instructions not mandatory for the computation
 that they will be explained in the next theoretical lessons, such as:
 - neighbour List
-- switching potential
+- switching distance
+- cutoff
 - PME
 - rigid bonds
-- 
-
+- pressure coupling
+- others?
 
 
 ## deeper analysis in the analysis tutorial
-
 comparison of the results
 
 <!--
