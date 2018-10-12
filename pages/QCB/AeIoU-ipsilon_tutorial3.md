@@ -79,6 +79,24 @@ $$
 <p class="prompt prompt-question">What information do we need to implement the
 Verlet algorithm?</p>
 
+<p align="center">
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+suspence...
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</p>
+
 We will need to provide:
 1. the initial positions of the atoms in the system;
 2. the potential energy to compute the forces from;
@@ -88,13 +106,23 @@ We will need to provide:
 
 We already saw the first three requirements.
 
-The **time step** 
-- velocity verlet:
-  1. force from ff (non bonded?!?)
-  2. time step: H vibration as period of 10 fs
-  3. initialise velocity
+The **time step** should be as large as possible, in order to achieve
+long simulated times. But (there is always a caveat) we do not want to have
+huge errors due to the integration. Moreover with super-long time step, atoms
+will move too much and they would overlap resulting a high repulsive force.
+<p class="prompt prompt-question">How is the repulsive force implemented?</p>
+The choice of the time step in based on the fastest motion in the system.
+In particular, it should be 1/10 of this fastest motion. For all-atom simulation,
+the hydrogen vibrations in bonds with heavy atoms have a period of ~10 fs.
+Therefore we would use a timestep of 1 fs (**maybe**).
 
+The initial velocities are in general assigned from a Maxwell-Boltzmann
+distribution at the desired temperature, but they can be set to a random values,
+extracted from a uniformdistribution etc...
 
+An ingredient that is not evident from the above discussion is
+
+#TODO: thermostat.
 - simulate the correct ensemble:
   1. thermostat (langevin-cenni: drag force and stochastic force) to fix NVT
   2. barostat to have NpT
