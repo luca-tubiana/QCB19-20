@@ -51,32 +51,20 @@ take-home message to remember is:
 
 <p align="center">"You should **not** change parameters at your own will, unless
  you want to introduce a systematic error in your simulation
-  and make them useless.</p>
+  and make them useless.""</p>
 
 or, in another way:
 <p align="center">First rule of the FF-Club is **Do not mess with the FF**.</p>
-
-## BPTI
-The _bovine pancreatic trypsin inhibitor_ is a small protein extensively studied
-since the dawn of Molecular Dynamics. It inhibits the enzyme trypsin, responsible
-for the protein digestion.
+<IMG class="displayed" src="../../img/tut3/newton_club.jpg" alt="">
+ (Credits: [La Scienza Coatta](https://www.facebook.com/LaScienzaCoatta/))
 
 
-<IMG class="displayed" src="../../img/tut3/bpti.png" alt="">
+So, now we have an (almost) complete overview of the files we will deal with.
+<IMG class="displayed" src="../../img/tut3/quiz_done.png" alt="">
+Congrats for the correct answer! ;)
 
-It was the first macromolecule of biological relevance simulated with MD with the
-seminal paper  _Dynamics of folded proteins_ by McCammon, Gelin and Karplus.
 
-#TODO: method of inhibition
-
-## Overview
-Let's recap the so called **MD machinery**.
-
-<p class="prompt prompt-question">What files do we need?</p>
-<IMG class="displayed" src="../../img/tut3/quiz.png" alt="">
-<!-- <IMG class="displayed" src="../../img/tut3/quiz_done.png" alt=""> -->
-
-## l
+## The Problem
 Before launching a simulation, let's see what are the time scale we can
 investigate. For now, with _MD_ we mean _all-atom MD_.
 
@@ -84,7 +72,7 @@ investigate. For now, with _MD_ we mean _all-atom MD_.
 
 From the picture above we see that we are constrained both spatially and in the
 simulated time, since the idea is to publish and we don't have infinite resources
-(someone pays the bill for the electric power used by computer).
+(someone pays the bill for the electric power used by computers).
 
 When you decide to perform a simulation some questions should be answered in advance:
 1. What process I want to investigate? Is it feasible?
@@ -92,7 +80,6 @@ When you decide to perform a simulation some questions should be answered in adv
 3. What level of detail do I need?
 
 We will keep these question in mind, but we will ignore them for now.
-
 
 
 ## MD in a nutshell
@@ -156,10 +143,10 @@ distribution at the desired temperature, but they can be set to a random values,
 extracted from a uniformdistribution etc...
 
 With all these pieces of information, we can performed a simulation in a,
-so called, **NVE ensemble** [^2], where the number of particles, the volume and
+so called, **NVE ensemble** [^3], where the number of particles, the volume and
 the total energy of the system is conserved.
 
-[^2]: Please notice it is written with the **e**, ens**e**mble.
+[^3]: Please notice it is written with the **e**, ens**e**mble.
 
 But usually, we want to compute quantities that the experimentally measured. And
 in experiments what is fixed is not the energy but the temperature, or not the
@@ -181,6 +168,24 @@ The workflow of your simulation would look like this:
 5. go back to **NVT** to reduced the perturbation introduced in your system.
 
 Depending on the system, step _5_ may not be performed.
+
+
+## BPTI
+The _bovine pancreatic trypsin inhibitor_ is a small protein extensively studied
+since the dawn of Molecular Dynamics. It inhibits the enzyme trypsin, responsible
+for the protein digestion.
+
+
+<IMG class="displayed" src="../../img/tut3/bpti.png" alt="">
+
+It was the first macromolecule of biological relevance simulated with MD with the
+seminal paper  _Dynamics of folded proteins_ by McCammon, Gelin and Karplus.
+
+The BTPI binds the trypsin hindering the ability of cleaving other proteins.
+For more details, see the _Notes_.
+
+Load the complex in the `bpti_trypsin/` folder and check the `LYS15` of the bpti.
+
 
 ### PSF
 Let's start from the pdb of the protein alone from the previous tutorial.
@@ -207,112 +212,103 @@ Check the correctness of the patches! </p>
 It will create and load a new molecule, both `psf` and `pdb`.
 
 ## Implicit solvent
-We will perform
-Proteins generally lives in an aqueous environment, with ions, all kinds
-of ligands and so on and so forth. Ideally, you would mimic as good as possible
-the
+Last time we performed few time step of a simulation in vacuum. Of course,
+proteins do not _live_ in the outer space in a _galaxy far, far away..._
+(unless we are studying *Midi-chlorian*, ça va sans dire).
 
-!!An implicit solvent model is a simulation tech-
-nique which eliminates the need for explicit water atoms by including
-many of the efects of solvent in the inter-atomic force calculation.
-For example, polar solvent acts as a dielectric and screens (lessens)
-electrostatic interactions. The elimenation of explicit water accel-
-erates conformational explorations and sometimes increases simula-
-tion speed at the cost of not modeling the solvent as accurately as
-explicit models.!!
+Proteins lives in an aqueous environment, with ions, all kinds
+of ligands and so on and so forth. We would like mimic as good as possible
+the biological environment by adding **explicitly** water molecules. This will
+be done in few steps. But in this section we will use an **implicit solvent
+model**.
 
-!!Because implicit solvent models
-eliminate explicit water molecules and represent water in an averaged
-manner, implicit solvent models are considered less accurate than
-explicit solvent models. Always use caution when employing implicit
-solvent for molecular dynamics research!!
+**Implicit Solvent** model is a computational technique that introduces many
+effects due to solvent-solute interactions, such as screening effects,
+without using the water atoms. Removing the water molecules accelerates
+the simulation both in the exploration of the solute conformations,
+and in the _CPU time_ required to actually do the computation.
 
-Generalized Born implicit sol-
-vent models are one particular class of implicit solvent models.
-There are two parts to a GBIS calculation. First, the Born radius
-of each atom is calculated. An atom’s Born radius represents the
-degree of exposure of an atom to solvent. Atoms on the surface of a
-protein are highly exposed to solvent, their electrostatic interactions
-will be highly screened and their Born radii will be small. Atoms
-buried in the center of a protein will not be very exposed to solvent,
-their electrostatics won’t be screened much and their Born radii will
-be large.  Second, inter-atomic electrostatic forces are calculated
-based on atom sepparation as well as the geometric mean of the
-two atoms’ Born radii.
+<p class="prompt prompt-attention">Implicit models are less accurate than
+the explicit counterpart!</p>
+
+In particular we will use the _Generalised Born implicit solvent_ (**GBIS**)
+model. The details are left for the theoretical part of the course.
+The main idea is to screen more the atoms nearby the surface of the protein nearby
+the solvent (and give them a _small effective radius_) and the opposite for the buried atoms inside the protein.
+
+The parameters that we have to set are:
+- `gbis yes`: we want to use the _GBIS_;
+- `cutoff 14`: for the electrostatic interactions (in Angstrom);
+- `alphaCutoff 12`: to determine the appropriate radius (in Angstrom);
+- `ionconcentration `: the default value is `0.2`.
+
+Let's open the configuration file for this simulation and see what is inside.
+<p class="prompt prompt-info">The section we will not discuss are defined by <br>
+# <--! <br>
+... <br>
+# !--> </p>
+
+Fix the lines left blank in the configuration file, and then launch the
+simulation.
+
+This time we will slightly modify the launching command:
+<p class="prompt prompt-shell">$ namd2 +p2 conf.namd > bubu.log &</p>
 
 
+To check how much time the program needs, type in the shell:
+<p class="prompt prompt-shell">$ grep "^TIMING" bubu.log </p>
+For 100k steps it will take 20 minutes.
 
- cause there is currently no way of calculating long-range interactions in
-implicit solvent, such as through PME, features based on periodic bound-
-ary conditions are not used with GBIS as listed below.
-•
-Periodic Boundary Conditions are not used.
-•
-PME is not used.
-•
-Constant Pressure Control (variable volume) is not used.
-4
-A few additional commands are required for implicit solvent use. The new
-commands are listed:
-•
-structure
-&
-coordinates
-: implicit solvent simulations use struc-
-tures which do not include any explicit water or ions as these are
-represented implicitly.
-•
-gbis
-: indicates whether or not the simulation uses the generalized
-Born implicit solvent model. Default value is
-no
-; set to
-yes
-to utilize.
-•
-cutoff
-: because there is no long-range electrostatic calculation,
-cutoff
-should be set higher for GBIS than for PME simulations; a value of
-14
- ̊
-A is sufficient here.
-•
-alphaCutoff
-: sets the cutoff used to determine the Born radius of
-each atom.  It is reasonable to set it a few
- ̊
-As less than
-cutoff
-;
-alphaCutoff
-= 12
- ̊
-A should be sufficient here
-minmax of the protein.
 
-- psf with autopsf
-#TODO: how long does the simulation take?
+Several files will be dumped from NAMD:
+- `.log` file;
+- `.dcd`: trajectory;
+- `.restart.*`: to restart the simulation;
+- `.coor`: binary for coordinates;
+- `.vel`: binary for velocities;
+- `.xsc/.xst`: for the simulation box;
 
-- create the configuration file:
-    - time step
-    - group
-    - exclude 1-4
-
-- output commands (computation of energies is expensive >100 ts)
-
-- use the toppar file download
-
-- analysis of the log file (part I:
-One of the output of the simulation is the logfile.
-Let's open it. There are a lot of information written in it, such as
+Let's start from the `.log` file.
+Let's open it with _ViM_. There are a lot of information written in it, such as
 the initialisation of the system, checking the number of atoms, the existence of the
 files, the correctness of the parameters file, the recap of the setup defined
 in the configuration file.
 
-Let's open the logfile with _ViM_ and search the word `Benchmark`.
-    - The information on the simulation
-    - benchmark info (check the difference in benckmark when solvated with 1/2/3/4 cores for sims of 1000min+5000 running)
+Search the word `Benchmark`. The data you find here are useful to establish
+the amount of resources (CPU/GPU) you should use.
+
+Then we can check the thermodynamics quantities we asked to compute on the fly.
+They will be written as row each defined timestep.
+The keywords are `ETITLE` to have the headers of the columns, and `ENERGY`
+for the actual values.
+
+While the simulation is running, you can write a `tcl` script to compute the
+_Root mean square displacement_ of the protein. It is defined as:
+
+$$ RMSD = \sqrt{\frac{1}{N} \sum_i^N (r_i^2(t) - r_i^2(0))}$$
+
+Usually it is performed considering only the C$$\alpha$$ and the following
+procedure is followed:
+1. Align the structure of each frame to the first frame structure, in order
+to remove the roto-translation of the system;
+2. Compute the RMSD.
+
+This quantity gives a qualitative estimate of the convergence of the simulation.
+We can define two segments of the total simulated time:
+- an **equilibration** phase that allows the system to reach the """equilibrium"""
+- a **production** phase from which we will compute the data we want.
+
+A criterion to check the equilibration of a system is to check for a plateau
+in the _rmsd_.
+
+<p class="prompt prompt-question">Write the rmsd.tcl script</p>
+
+Once the simulation is completed, let's analyse the output in the `.log` file.
+
+In _VMD_ go in _Extension -> Analysis -> NAMD Plot_.
+You should see this:
+
+<IMG class="displayed" src="../../img/tut3/namd_plot.png" alt="">
 
 - check energy with namd plot
     - temperature
@@ -323,7 +319,6 @@ Let's open the logfile with _ViM_ and search the word `Benchmark`.
 
 - printing out velocities for MB/specific heat.
 
-e$$ RMSD = \sqrt{\frac{1}{N} \sum_i^N (r_i^2(t) - r_i^2(0))}$$
 
 #TODO: see namd tutorial
 
@@ -719,6 +714,7 @@ To launch the minimisation, use the `minimise.namd` that have to be completed an
 # Further Notes
 1. [NAMD User guide]()
 2. Molecular Modeling of Proteins, edited by Andreas Kukol.
+
 ---
 # Notes
 
