@@ -307,11 +307,27 @@ Once the simulation is completed, let's analyse the output in the `.log` file.
 
 In _VMD_ go in _Extension -> Analysis -> NAMD Plot_.
 You should see this:
-
 <IMG class="displayed" src="../../img/tut3/namd_plot.png" alt="">
 
-- check energy with namd plot
-    - temperature
+Load the `.log` file and analyse the `TEMP`.
+
+<p class="prompt prompt-question">Can you explain the behaviour of the
+temperature?</p>.
+
+We can also save the extracted info, but it is too cumbersome (imho).
+So let's use the `shell`.
+
+The idea is to extract from the `log` file some lines. We will use the following
+commands:
+<p class="prompt prompt-shell">$ grep "^ETITLE" bubu.log |
+tail -n 1 > thermo.dat <br>
+$ grep "^ENERGY" bubu.log >> thermo.dat</p>
+
+See if the file is properly written. And now let's plot something.
+<p class="prompt prompt-shell">$ gnuplot <br>
+> set key autotitle columnheader<br>
+> p "thermo.dat" u 2:13 w l </p>
+
     - potential energy
     - these quantities equilibrate faster than the protein (#TODO: check). compare with rmsd
 
