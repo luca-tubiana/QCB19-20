@@ -28,14 +28,33 @@ Let's recap the so called **MD machinery**.
 <p class="prompt prompt-question">What files do we need?</p>
 <IMG class="displayed" src="../../img/tut3/quiz.png" alt="">
 
+<p class="prompt prompt-question">What files do we use?</p>
 
 ## PAR file
+Last time we saw the several files, but we did not have a look at the parameters
+file.
+Let's open `par_all36m_prot.prm` with _ViM_.
+There is a section for all the interaction we saw last time.
 
-Let's have a look at the parameter files.
+<p class="prompt prompt-question"> Do you see other potential functions not
+defined in the last lesson?</p>
 
+We  mentioned that the force field has to be taken as a whole, since several
+approximations are hidden in the parameter definition.
+
+Other _parameters_ must be set for the non-bonded interactions (the exact meaning
+  will be defined in other lessons):
 <IMG class="displayed" src="../../img/tut3/par_nb.png" alt="">
--
 
+The meaning of these commands is not important for this tutorial, but the
+take-home message to remember is:
+
+<p align="center">"You should **not** change parameters at your own will, unless
+ you want to introduce a systematic error in your simulation
+  and make them useless.</p>
+
+or, in another way:
+<p align="center">First rule of the FF-Club is **Do not mess with the FF**.</p>
 
 ## BPTI
 The _bovine pancreatic trypsin inhibitor_ is a small protein extensively studied
