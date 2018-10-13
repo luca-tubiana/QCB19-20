@@ -10,8 +10,9 @@ mathjax: true
 In this session we will build the setup, analyse the configuration file and
 perform a small analysis of a system.[^1]
 
-[^1]: This tutorial is based on [NAMD tutorial]() and [BPTI case study]()
+[^1]: This tutorial is based on [NAMD tutorial]() and [BPTI case study]().
 
+I encourage you to have a look at the
 ### Getting ready
 For this tutorial, download the following
 #FIXME: add source [source file]().
@@ -20,6 +21,21 @@ You should know how to untar, but let's remind it:
 
 #FIXME: add folderlist
 There should be two folders: `foo/` and `bar/`.
+
+## Overview
+Let's recap the so called **MD machinery**.
+
+<p class="prompt prompt-question">What files do we need?</p>
+<IMG class="displayed" src="../../img/tut3/quiz.png" alt="">
+
+
+## PAR file
+
+Let's have a look at the parameter files.
+
+<IMG class="displayed" src="../../img/tut3/par_nb.png" alt="">
+-
+
 
 ## BPTI
 The _bovine pancreatic trypsin inhibitor_ is a small protein extensively studied
@@ -41,7 +57,7 @@ Let's recap the so called **MD machinery**.
 <IMG class="displayed" src="../../img/tut3/quiz.png" alt="">
 <!-- <IMG class="displayed" src="../../img/tut3/quiz_done.png" alt=""> -->
 
-##
+## l
 Before launching a simulation, let's see what are the time scale we can
 investigate. For now, with _MD_ we mean _all-atom MD_.
 
@@ -120,25 +136,142 @@ The initial velocities are in general assigned from a Maxwell-Boltzmann
 distribution at the desired temperature, but they can be set to a random values,
 extracted from a uniformdistribution etc...
 
-An ingredient that is not evident from the above discussion is
+With all these pieces of information, we can performed a simulation in a,
+so called, **NVE ensemble** [^2], where the number of particles, the volume and
+the total energy of the system is conserved.
 
-#TODO: thermostat.
-- simulate the correct ensemble:
-  1. thermostat (langevin-cenni: drag force and stochastic force) to fix NVT
-  2. barostat to have NpT
-  3. NVT again to reduce perturbation of the system.
+[^2]: Please notice it is written with the **e**, ens**e**mble.
+
+But usually, we want to compute quantities that the experimentally measured. And
+in experiments what is fixed is not the energy but the temperature, or not the
+volume but the pressure.
+
+Therefore, we need to introduce two new ingredients that will be explained in the
+theoretical lessons: a _thermostat_ and a _barostat_.
+These two pieces will help us in simulating our system in the correct ensemble,
+**NVT** and **NpT**.
+
+An ingredient that is not evident from the above discussion is ihe necessity to
+reproduce experimental results.
+
+The workflow of your simulation would look like this:
+1. build the setup:
+2. minimise the system;
+3. equilibrate the system in **NVT**;
+4. equilibrate the system in **NpT**;
+5. go back to **NVT** to reduced the perturbation introduced in your system.
+
+Depending on the system, step _5_ may not be performed.
 
 ### PSF
-Let's start from the pdb of the protein alone. Recap of PSF
+Let's start from the pdb of the protein alone from the previous tutorial.
+We will build again the `psf` with the _AutoPSF_ plugin.
 
-create the psf with
-Autopsf gen
+Open _VMD_ in your working folder `tutorial3`, and load your pdb file.
+Now go to _Extension -> Modeling
+-> Automatic PSF Builder_.
+A new window pops up:
 
-move the protein in the middle
+<IMG class="displayed" src="../../img/tut3/autopsf.png" alt="">
+The steps we will perform is:
+1. Check if our molecule is properly loaded;
+2. Select the output name or use the default one;
+3. Delete the default `top*` files and add our own;
+4. Load the input files;
+5. Guess and create the chains;
+6. Check if our patches are automagically imported;
+7. Finish the psf.
 
-minmax of the protein.
+<p class="prompt prompt-attention">
+Check the correctness of the patches! </p>
+
+It will create and load a new molecule, both `psf` and `pdb`.
 
 ## Implicit solvent
+We will perform
+Proteins generally lives in an aqueous environment, with ions, all kinds
+of ligands and so on and so forth. Ideally, you would mimic as good as possible
+the
+
+!!An implicit solvent model is a simulation tech-
+nique which eliminates the need for explicit water atoms by including
+many of the efects of solvent in the inter-atomic force calculation.
+For example, polar solvent acts as a dielectric and screens (lessens)
+electrostatic interactions. The elimenation of explicit water accel-
+erates conformational explorations and sometimes increases simula-
+tion speed at the cost of not modeling the solvent as accurately as
+explicit models.!!
+
+!!Because implicit solvent models
+eliminate explicit water molecules and represent water in an averaged
+manner, implicit solvent models are considered less accurate than
+explicit solvent models. Always use caution when employing implicit
+solvent for molecular dynamics research!!
+
+Generalized Born implicit sol-
+vent models are one particular class of implicit solvent models.
+There are two parts to a GBIS calculation. First, the Born radius
+of each atom is calculated. An atom’s Born radius represents the
+degree of exposure of an atom to solvent. Atoms on the surface of a
+protein are highly exposed to solvent, their electrostatic interactions
+will be highly screened and their Born radii will be small. Atoms
+buried in the center of a protein will not be very exposed to solvent,
+their electrostatics won’t be screened much and their Born radii will
+be large.  Second, inter-atomic electrostatic forces are calculated
+based on atom sepparation as well as the geometric mean of the
+two atoms’ Born radii.
+
+
+
+ cause there is currently no way of calculating long-range interactions in
+implicit solvent, such as through PME, features based on periodic bound-
+ary conditions are not used with GBIS as listed below.
+•
+Periodic Boundary Conditions are not used.
+•
+PME is not used.
+•
+Constant Pressure Control (variable volume) is not used.
+4
+A few additional commands are required for implicit solvent use. The new
+commands are listed:
+•
+structure
+&
+coordinates
+: implicit solvent simulations use struc-
+tures which do not include any explicit water or ions as these are
+represented implicitly.
+•
+gbis
+: indicates whether or not the simulation uses the generalized
+Born implicit solvent model. Default value is
+no
+; set to
+yes
+to utilize.
+•
+cutoff
+: because there is no long-range electrostatic calculation,
+cutoff
+should be set higher for GBIS than for PME simulations; a value of
+14
+ ̊
+A is sufficient here.
+•
+alphaCutoff
+: sets the cutoff used to determine the Born radius of
+each atom.  It is reasonable to set it a few
+ ̊
+As less than
+cutoff
+;
+alphaCutoff
+= 12
+ ̊
+A should be sufficient here
+minmax of the protein.
+
 - psf with autopsf
 #TODO: how long does the simulation take?
 
@@ -160,7 +293,7 @@ in the configuration file.
 
 Let's open the logfile with _ViM_ and search the word `Benchmark`.
     - The information on the simulation
-    - benchmark info (check the difference in benckmark when solvated with 1/2/3/4 cores for sims of 1000min+1000 running)
+    - benchmark info (check the difference in benckmark when solvated with 1/2/3/4 cores for sims of 1000min+5000 running)
 
 - check energy with namd plot
     - temperature
@@ -171,9 +304,12 @@ Let's open the logfile with _ViM_ and search the word `Benchmark`.
 
 - printing out velocities for MB/specific heat.
 
+e$$ RMSD = \sqrt{\frac{1}{N} \sum_i^N (r_i^2(t) - r_i^2(0))}$$
+
 #TODO: see namd tutorial
 
 (while the simulation is running, go on)
+
 
 ## Solvation box
 
