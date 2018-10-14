@@ -493,12 +493,13 @@ We can also use `awk` to get rid of the unwanted columns in the `thermo.dat`
 we obtained before.
 <p class="prompt prompt-question">Make a file with timestep and temperature only,
 using awk.<br>
-Try to compute the average of the same two quantities for the "equilibrated" part</p>
+Try to compute the average of the same two quantities for the "equilibrated"
+ part with _awk_</p>
 
 Let's compute the RMSD for the simulation with explicit solvent.
 
-<p class="prompt prompt-question">Compute the radius of the protein in Implicit
-and explicit solvent</p>
+<p class="prompt prompt-question">Compute the radius of gyration of
+the protein in implicit and explicit solvent</p>
 
 
 <!--
