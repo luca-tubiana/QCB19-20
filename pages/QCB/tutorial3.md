@@ -399,7 +399,7 @@ electrostatic interactions. But it will be clearer later in the course ;)
 This time we will use the GUI to _ionise_ the system.
 First delete all the loaded molecules, and reload the `psf` and the new `pdb`.
 
-Go to _Extension -> Modeling -> <Find out yourselves>_.
+Go to _Extension -> Modeling -> Try-to-guess_.
 
 We will neutralise the charge in the system and add a 0.1 M ion concentration.
 <p class="prompt prompt-question">Why is our system charged in the first place?</p>
