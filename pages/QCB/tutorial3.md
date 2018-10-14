@@ -500,10 +500,10 @@ Let's compute the RMSD for the simulation with explicit solvent.
 <p class="prompt prompt-question">Compute the radius of the protein in Implicit
 and explicit solvent</p>
 
-#TODO: compare fluctuation of temperature for 100ps in implicit and explicit
-#TODO: provide the dcd
 
 <!--
+#TODO: compare fluctuation of temperature for 100ps in implicit and explicit
+#TODO: provide the dcd
 -->
 # Further Notes
 1. [NAMD User guide]()
