@@ -9,8 +9,7 @@ mathjax: true
 In this session we will build the setup, analyse the configuration file and
 perform a small analysis of a system.[^1]
 
-[^1]: This tutorial is based on [NAMD tutorial](https://www.ks.uiuc.edu/Training/Tutorials/namd/namd-tutorial-unix.pdf)
-(Unix version, but there is also a Windows version) and [BPTI case study](https://www.ks.uiuc.edu/Training/CaseStudies/pdfs/bpti.pdf).
+[^1]: This tutorial is based on [NAMD tutorial](https://www.ks.uiuc.edu/Training/Tutorials/namd/namd-tutorial-unix.pdf) (Unix version, but there is also a Windows version) and [BPTI case study](https://www.ks.uiuc.edu/Training/CaseStudies/pdfs/bpti.pdf).
 
 I encourage you to have a look at the sources provided you at the end of the
 tutorial.
