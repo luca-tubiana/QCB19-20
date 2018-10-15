@@ -11,7 +11,7 @@ some [case studies](https://www.ks.uiuc.edu/Training/CaseStudies/) of the [Theor
 University of Illinois Urbana-Champaign. Other sources will be properly cited, whenever it is possible due to time constraints. My own additions will also be present.
 I warmly recommend the interest reader to take a look at the cited sources.
 
-All the errors presents will be on my own only. If you find any of them, along with bugs and suggestions, please let me know via email or PR on [GitHub](https://github.com/GianFree/gianfree.github.io).
+All the errors in these sections will be on my own only. If you find any of them, along with bugs and suggestions, please let me know via email or PR on [GitHub](https://github.com/GianFree/gianfree.github.io).
 
 Throughout the tutorial we will use the following colour code[^1] if needed.
 
