@@ -34,7 +34,7 @@ echo "This is a bash script."
 
 1. [Visualisation](/pages/QCB/tutorial1)
 2. [Tria sunt genera fileorum](/pages/QCB/tutorial2)
-3. #TODO: title and link
+3. [Io NAMD e tu](/pages/QCB/tutorial3) (you should read _Io nammedi e tu_)
 
 # Useful (hopefully) commands
 - [Bash and ViM cheatsheet](/pages/cs)

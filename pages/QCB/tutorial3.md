@@ -1,7 +1,6 @@
 ---
 layout: page
 author: Gianfranco Abrusci
-permalink: /pages/1111
 mathjax: true
 ---
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
@@ -10,17 +9,19 @@ mathjax: true
 In this session we will build the setup, analyse the configuration file and
 perform a small analysis of a system.[^1]
 
-[^1]: This tutorial is based on [NAMD tutorial]() and [BPTI case study]().
+[^1]: This tutorial is based on [NAMD tutorial](https://www.ks.uiuc.edu/Training/Tutorials/namd/namd-tutorial-unix.pdf)
+(Unix version, but there is also a Windows version) and [BPTI case study](https://www.ks.uiuc.edu/Training/CaseStudies/pdfs/bpti.pdf).
 
-I encourage you to have a look at the
+I encourage you to have a look at the sources provided you at the end of the
+tutorial.
+
 ### Getting ready
-For this tutorial, download the following
-#FIXME: add source [source file]().
+For this tutorial, download the following [source files](https://drive.google.com/file/d/1kwt2D9-fQg17oQlVEYpsJlsZydxLxpRx/view?usp=sharing).
 You should know how to untar, but let's remind it:
 <p class="prompt prompt-shell">$ tar xvzf tutorial3.tar.gz</p>
 
-#FIXME: add folderlist
-There should be two folders: `foo/` and `bar/`.
+There should be four folders: `bpti_trypsin/`, `common/`, `implicit/` and
+`explicit/`.
 
 ## Overview
 Let's recap the so called **MD machinery**.
@@ -33,13 +34,14 @@ Let's recap the so called **MD machinery**.
 Last time we saw the several files, but we did not have a look at the parameters
 file.
 Let's open `par_all36m_prot.prm` with _ViM_.
-There is a section for all the interaction we saw last time.
+For each interaction we saw last time there should be a section in the
+parameters file.
 
 <p class="prompt prompt-question"> Do you see other potential functions not
 defined in the last lesson?</p>
 
 We  mentioned that the force field has to be taken as a whole, since several
-approximations are hidden in the parameter definition.
+approximations are hidden in the parameters definition.
 
 Other _parameters_ must be set for the non-bonded interactions (the exact meaning
   will be defined in other lessons):
@@ -50,7 +52,7 @@ take-home message to remember is:
 
 <p align="center">"You should **not** change parameters at your own will, unless
  you want to introduce a systematic error in your simulation
-  and make them useless.""</p>
+  and make them useless."</p>
 
 or, in another way:
 <p align="center">First rule of the FF-Club is **Do not mess with the FF**.</p>
@@ -74,7 +76,7 @@ simulated time, since the idea is to publish and we don't have infinite resource
 (someone pays the bill for the electric power used by computers).
 
 When you decide to perform a simulation some questions should be answered in advance:
-1. What process I want to investigate? Is it feasible?
+1. What process do I want to investigate? Is it feasible?
 2. Do I have enough resources? (in general you hope so)
 3. What level of detail do I need?
 
@@ -108,7 +110,7 @@ Verlet algorithm?</p>
 <br>
 <br>
 <br>
-suspence...
+suspense...
 <br>
 <br>
 <br>
@@ -130,24 +132,27 @@ We already saw the first three requirements.
 The **time step** should be as large as possible, in order to achieve
 long simulated times. But (there is always a caveat) we do not want to have
 huge errors due to the integration. Moreover with super-long time step, atoms
-will move too much and they would overlap resulting a high repulsive force.
+will move too much and they would overlap resulting  in a high repulsive force.
 <p class="prompt prompt-question">How is the repulsive force implemented?</p>
 The choice of the time step in based on the fastest motion in the system.
-In particular, it should be 1/10 of this fastest motion. For all-atom simulation,
-the hydrogen vibrations in bonds with heavy atoms have a period of ~10 fs.
+As a rule of thumb, it should not be greater than 1/10 of this fastest motion.
+For all-atom simulation, the hydrogen vibrations in bonds with heavy
+atoms have a period of ~10 fs.
 Therefore we would use a timestep of 1 fs (**maybe**).
 
 The initial velocities are in general assigned from a Maxwell-Boltzmann
-distribution at the desired temperature, but they can be set to a random values,
-extracted from a uniformdistribution etc...
+distribution at the desired temperature, but they can be set to random values,
+extracted from a uniform distribution etc...
+<IMG class="displayed" src="../../img/tut3/mb.svg" alt="">
+<p align="center">M-B distribution (from [Wikipedia](https://commons.wikimedia.org/wiki/File:Maxwell-Boltzmann_distribution.svg)).</p>
 
-With all these pieces of information, we can performed a simulation in a,
+With all these pieces of information, we can perform a simulation in a,
 so called, **NVE ensemble** [^3], where the number of particles, the volume and
 the total energy of the system is conserved.
 
 [^3]: Please notice it is written with the **e**, ens**e**mble.
 
-But usually, we want to compute quantities that the experimentally measured. And
+But usually, we want to compute quantities that are experimentally measured. And
 in experiments what is fixed is not the energy but the temperature, or not the
 volume but the pressure.
 
@@ -156,7 +161,7 @@ theoretical lessons: a _thermostat_ and a _barostat_.
 These two pieces will help us in simulating our system in the correct ensemble,
 **NVT** and **NpT**.
 
-An ingredient that is not evident from the above discussion is ihe necessity to
+An ingredient that is not evident from the above discussion is the necessity to
 reproduce experimental results.
 
 The workflow of your simulation would look like this:
@@ -220,12 +225,12 @@ Check the correctness of the patches! </p>
 It will create and load a new molecule, both `psf` and `pdb`.
 
 ## Implicit solvent
-Last time we performed few time step of a simulation in vacuum. Of course,
+Last time we performed few time steps of a simulation in vacuum. Of course,
 proteins do not _live_ in the outer space in a _galaxy far, far away..._
 (unless we are studying *Midi-chlorian*, ça va sans dire).
 
-Proteins lives in an aqueous environment, with ions, all kinds
-of ligands and so on and so forth. We would like mimic as good as possible
+Proteins live in an aqueous environment, with ions, all kinds
+of ligands and so on and so forth. We would like to mimic as good as possible
 the biological environment by adding **explicitly** water molecules. This will
 be done in few steps. But in this section we will use an **implicit solvent
 model**.
@@ -277,7 +282,7 @@ Several files will be dumped from NAMD:
 - `.xsc/.xst`: for the simulation box;
 
 Let's start from the `.log` file.
-Let's open it with _ViM_. There are a lot of information written in it, such as
+Let's open it with _ViM_. There is a lot of information written in it, such as
 the initialisation of the system, checking the number of atoms, the existence of the
 files, the correctness of the parameters file, the recap of the setup defined
 in the configuration file.
@@ -285,13 +290,14 @@ in the configuration file.
 Search the word `Benchmark`. The data you find here are useful to establish
 the amount of resources (CPU/GPU) you should use.
 
-Then we can check the thermodynamics quantities we asked to compute on the fly.
+Then we can check the thermodynamic quantities we asked to compute on the fly.
 They will be written as row each defined timestep.
 The keywords are `ETITLE` to have the headers of the columns, and `ENERGY`
 for the actual values.
 
 While the simulation is running, you can write a `tcl` script to compute the
-_Root mean square displacement_ of the protein. It is defined as:
+_Root mean square displacement_ of the protein. It is defined as, assuming
+that all the atoms have the same mass:
 
 $$ RMSD = \sqrt{\frac{1}{N} \sum_i^N (r_i(t) - r_i(0))^2}$$
 
@@ -338,6 +344,8 @@ See if the file is properly written. And now let's plot something.
 
 Check the potential energy `14`, the total energy `12`.
 Compare in the same plot the temperature `13` with the average temperature `16`.
+
+A longer trajectory (10 ns) in implicit solvent is available [here](https://drive.google.com/open?id=1CVi7MV-Cf9djRn3IjS4UgMVXHwYiBIgU).
 
 ## Explicit Solvent
 If we want to simulate a protein in a water box, we should build a water box
@@ -408,7 +416,7 @@ Let's run the simulation. As a guideline, let's remind the procedure
 we should follow for a production simulation:
 1. minimisation;
 2. heavy atoms of the protein harmonically restrained to their starting positions
-while the solvent equilibrates arount the protein;
+while the solvent equilibrates around the protein;
 3. NVT simulation to go into the canonical ensemble;
 4. Add the pressure.
 
@@ -449,7 +457,12 @@ for 3 processes to 4.
 2) If you want to do a for-loop modify the command above (hint:`&`)
 </p>
 
-This time with 4 cores, the simulation takes ~50min for 100k steps.
+This time with 4 cores, the simulation takes ~50min for 100k steps. So, launch
+1000 time steps of simulation to check if it works.
+
+
+A longer trajectory (10 ns) in explicit solvent is available [here](https://drive.google.com/file/d/1vP-DcCvr3YVEv0XCXkAtfWwhCAEOOFrn/view?usp=sharing).
+
 
 # AWK detour
 _AWK_ is a scripting language to manipulate text. It is particular useful for small
@@ -464,7 +477,7 @@ The default variables you will need are:
  loop is performed;
 - `$0`: a whole line;
 - `$i`: the i-th field;
-Moreover you can do operation at the before (`BEGIN`) and after (`END`)
+Moreover you can do operations before (`BEGIN`) and after (`END`)
  the main loop.
 First, create a file with 1 column filled with numbers from 1 to 100.
 **Hint**: use a bash for-loop.
@@ -503,14 +516,10 @@ the protein in implicit and explicit solvent</p>
 
 
 <!--
-#TODO: compare fluctuation of temperature for 100ps in implicit and explicit
-#TODO: provide the dcd
 -->
 # Further Notes
-1. [NAMD User guide]()
+1. [NAMD User guide](https://www.ks.uiuc.edu/Research/namd/2.12/ug.pdf)
 2. Molecular Modeling of Proteins, edited by Andreas Kukol.
 
 ---
 # Notes
-
-#FIXME: fix notes
