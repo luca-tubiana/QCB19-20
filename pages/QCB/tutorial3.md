@@ -411,6 +411,9 @@ Go to _Extension -> Modeling -> Try-to-guess_.
 We will neutralise the charge in the system and add a 0.1 M ion concentration.
 <p class="prompt prompt-question">Why is our system charged in the first place?</p>
 
+
+<!--
+
 Let's run the simulation. As a guideline, let's remind the procedure
 we should follow for a production simulation:
 1. minimisation;
@@ -514,7 +517,6 @@ Let's compute the RMSD for the simulation with explicit solvent.
 the protein in implicit and explicit solvent</p>
 
 
-<!--
 -->
 # Further Notes
 1. [NAMD User guide](https://www.ks.uiuc.edu/Research/namd/2.12/ug.pdf)
