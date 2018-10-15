@@ -345,7 +345,7 @@ See if the file is properly written. And now let's plot something.
 Check the potential energy `14`, the total energy `12`.
 Compare in the same plot the temperature `13` with the average temperature `16`.
 
-A longer trajectory (10 ns) in implicit solvent is available [here](https://drive.google.com/open?id=1CVi7MV-Cf9djRn3IjS4UgMVXHwYiBIgU).
+A longer trajectory (10 ns) in implicit solvent is available [here](https://drive.google.com/open?id=1CVi7MV-Cf9djRn3IjS4UgMVXHwYiBIg[^88e8]U).
 
 ## Explicit Solvent
 If we want to simulate a protein in a water box, we should build a water box
