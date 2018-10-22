@@ -5,7 +5,7 @@ mathjax: true
 ---
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 
-
+LOL 
 In this session we will build the setup for an explicit solvent simulation,
  analyse the configuration file, launch it on a cluster, and perform a small analysis of a system.[^1]
 
