@@ -79,7 +79,7 @@ Does it work?
 
 
 Now try to launch `namd` using more cores:
-<p class="prompt prompt-shell">$ namd2 -pN conf.namd > lognameN.log & </p>
+<p class="prompt prompt-shell">$ namd2 +pN conf.namd > lognameN.log & </p>
 where `N` is the number of cores available.
 Launch the same simulation using 2,3,4 processes (change also the logfile name).
 In general you should be able to run with `4` cores,
