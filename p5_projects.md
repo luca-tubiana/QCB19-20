@@ -4,9 +4,9 @@ title: p5 projs
 permalink: /p5_projs/
 ---
 
-Here you can find some projects using `p5.js`. Mainly they are copies of 
-projects [The Coding Train]() shows in his YouTube channel, but I use them 
-to learn a bit of Javascript (in a funny way ;) ). 
+Here you can find some projects using `p5.js`. Mainly they are copies of
+projects [The Coding Train](https://www.youtube.com/user/shiffman) shows in his YouTube channel, but I use them 
+to learn a bit of Javascript (in a funny way ;) ).
 
 1. Rocking around my first clock.
 

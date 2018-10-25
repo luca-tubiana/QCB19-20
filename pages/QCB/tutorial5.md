@@ -7,6 +7,31 @@ mathjax: true
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 
 
+## membrane protein
+
+see first image -> setup and split the problem into segments.
+
+somma per ottenere la struttura finale: (o forse è meglio combinazione lineare dato che ci vogliono 4 proteine)
+
+proteina pdb + box d'acqua + ioni + membrana intera in obliquo (per vedere che è intera) = sistema finale
+
+#TODO: recap simulazione
+
+#
+
+start with membrane proteins
+
+what to do
+
+
+how to do
+
+
+1. water molecules and ions
+
+
+We download the pdb and we compare to the structure. Therefore  
+
 
 
 
