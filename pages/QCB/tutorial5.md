@@ -9,21 +9,27 @@ mathjax: true
 In this session we will build the setup for the KcsA, a membrane protein,
 and the step to perform the simulation.
 
-The files you need are available [here]().
+The files you need are available [here](https://drive.google.com/file/d/1LbPQvlZb5F8V8nPFuzhlyDFoEK7IAAQ0/view?usp=sharing).
 
-[^1]: See [Membrane tutorial]() for the references.
+[^1]: See [Membrane tutorial](https://www.ks.uiuc.edu/Training/Tutorials/science/membrane/mem-tutorial.pdf) for the references.
 
+# Disclaimer
+Today we will use CHARMm 27 ff, although in general you should use the
+latest forcefield available.
 
-## Recap
-Find a way to make the quiz for the
-
+You are, as always, encourage to read the tutorial in the _Notes_.
 ## Membrane protein
+Membrane proteins are usually more difficult to simulate with respect to
+soluble proteins. The difficulties are mainly related to the unavailability
+to have experimental crystal structures, and to the longer timescale that
+must be explored.
+
 We will build the setup of the KcsA, a potassium channel membrane protein.
 Your setup will look like this:
 <IMG class="displayed" src="../../img/tut5/setup.png" alt="" width="500" height="500">
 
-Except from the change in the ion composition (this time KCL), we can see that
-obviously we need to add a membrane patch.
+Except from the change in the ion composition (this time KCL), we can see
+that obviously we need to add a membrane patch.
 
 
 ## Our challenge
