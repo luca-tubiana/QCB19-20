@@ -7,17 +7,159 @@ mathjax: true
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 
 
-## membrane protein
+In this session we will build the setup for the KcsA, a membrane protein,
+and the step to perform the simulation.
 
-see first image -> setup and split the problem into segments.
+The files you need are available [here]().
 
-somma per ottenere la struttura finale: (o forse è meglio combinazione lineare dato che ci vogliono 4 proteine)
+[^1]: See [Membrane tutorial]() for the references.
 
-proteina pdb + box d'acqua + ioni + membrana intera in obliquo (per vedere che è intera) = sistema finale
 
-#TODO: recap simulazione
+## Recap
+Find a way to make the quiz for the
 
-#
+## Membrane protein
+We will build the setup of the KcsA, a potassium channel membrane protein.
+Your setup will look like this:
+<IMG class="displayed" src="../../img/tut5/setup.png" alt="" width="500" height="500">
+
+Except from the change in the ion composition (this time KCL), we can see that
+obviously we need to add a membrane patch.
+
+
+## Our challenge
+If we over-simplify the steps, our goal is to apply the following equation.
+<IMG class="displayed" src="../../img/tut5/eq_of_love.png" alt="">
+<p align="center"> The equation of love <3.</p>
+
+<p class="prompt prompt-question">How do we go from the left side of the
+equation to the right side?</p>
+<p>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</p>
+
+The road map is:
+1. Download and modify the experimental `pdb`;
+2. Obtain the tetramer;
+3. Create a membrane patch;
+4. Insert the protein inside the membrane;
+5. Solvate and ionise the sytem.
+
+Let's see in details all the steps.
+
+## The protein
+Download from the [PDB website](https://www.rcsb.org) the entry `1K4C`.
+<p class="prompt prompt-question">Have a look at the biological assembly!</p>
+
+From the website you can already see how the protein is arranged within the membrane.
+
+Let's open the `pdb` in _VMD_ and visualise it.
+
+<IMG class="displayed" src="../../img/tut5/initial_pdb.png" alt="">
+
+In this system we see that there is not only our protein (the alpha helices).
+We have also water molecules, several potassium ions, few lipids and antibody
+fragments that is used to crystalise the protein.
+<p></p>
+<p class="prompt prompt-question"> Visualise the protein secondary structure and
+colour it by chain.</p>
+<p></p>
+<p class="prompt prompt-question">How many chain are there?</p>
+
+Take note of the chain we need for our setup.
+
+Let's now investigate the `pdb` file, and go and check the remarks `350`,
+`465` and `470`.
+<p></p>
+<p class="prompt prompt-question">What do these remarks tell us?</p>
+<p></p>
+
+Now we have two pieces of information: the first one is that our system is a
+tetramer (`REMARKS 350`); the second one is that we have the matrix to apply
+to the system to obtain the biological assembly.
+
+As you can see the matrix is a 3 by 4 matrix, to which we have to add a
+row `{0.0 0.0 0.0 1.0}` to obtain a 4 by 4 matrix that is used by _VMD_
+to apply roto-translations.
+
+The **goal** is to create the **psf** for the tetramer. To do so, we need a
+`psf` for each part of the system that is not covalently bonded to other parts.
+We also need the coordinates of the system.
+
+Let's start from the coordinates. The axis of rotation will be the _z_ axis,
+and the tetramer will be built arount the `K` ions.
+
+What we are doing here is to create 4 `pdb` files with a different `segname`.
+
+After loading the `1K4C.pdb`, let's set an appropriate `segname` for the first
+element of the tetramer (to which we will apply the identity matrix). So we just
+set the segname only.
+
+```
+mol new 1K4C.pdb
+set all [atomselect top all]
+$all set segname A
+$all writepdb KCSA-A.pdb
+$all delete
+```
+
+Then we apply the second matrix to our system and we change the `segname` too.
+Of course we save the system also this time.
+<p class="prompt prompt-attention"> Check the new selection!</p>
+```
+set sel [atomselect top "all and not name K"]
+$sel set segname B
+$sel move { {-1.0 0.0 0.0 310.66} {0.0 -1.0 0.0 310.66}
+{0.0 0.0 1.0 0.0} {0.0 0.0 0.0 1.0} }
+$sel writepdb KCSA-B.pdb
+$sel delete
+mol delete top
+```
+Now we delete the structure since we change the coordinates and the matrices
+are given for the given pdb.
+<p class="prompt prompt-question">Complete the tetramer by applying the
+other transformations.</p>
+
+
+
+
+## check in cw and ions
+
+lele
+
+# solvating with grubmuller
+
+# membrane patch
+
+# orientation of the protein
+As a convention, the setup has the membrane parallel to the _xy_ plane, and the
+protein is aligned to the z axis.
+# insertion of the protein + deletion of lipids
+
+# solvation
+
+# ionisation
+
+# lipid tails
+
+# harmonic restraints
+
+# equilibration and production
 
 start with membrane proteins
 
@@ -32,355 +174,12 @@ how to do
 
 We download the pdb and we compare to the structure. Therefore  
 
+# Configutation file
+- particle mesh ewald
+- short vs long range force evaluation
 
+<IMG class="displayed" src="../../img/noimage.png" alt="" width="400" height="400">
 
 
-<!--
-In this session we will build the setup for an explicit solvent simulation,
- analyse the configuration file, launch it on a cluster, and perform a small analysis of a system.[^1]
 
-[^1]: See [tutorial 3](/pages/QCB/tutorial3) for the references.
-
-## Question time, again
-Let's recap the so called **MD machinery**.
-
-<p class="prompt prompt-question">What files do we need?</p>
-<IMG class="displayed" src="../../img/tut3/quiz.png" alt="">
-
-## Recap of last tutorial
-Last time we built the setup for an explicit solvent simulation.
-
-<p class="prompt prompt-question">What steps did we follow?</p>
-
-## Explicit solvent (part 2)
-Let's run the simulation. As a guideline, let's remind the procedure
-we should follow for a production simulation:
-1. minimisation;
-2. heavy atoms of the protein harmonically restrained to their starting positions
-while the solvent equilibrates around the protein;
-3. NVT simulation to go into the canonical ensemble;
-4. Add the pressure.
-
-We will run an _NpT_ simulation just to get accustomed to the new option.
-You already know what lines you should fill, but now we have two more things to add.
-
-<p class="prompt prompt-attention">Use the centered box!!!</p>
-
-First, now our system has also water molecules, therefore we need a new
-parameter file.
-It's in the _VMD_ plugin folder.
-
-Second, we have to set the center and the `a b c` of the box.
-The center should be `0.0 0.0 0.0` because of one of the previous commands,
-and the _cellVectors_ are
-```
-cellBasisVector1 _Delta x_  0.0  0.0
-cellBasisVector2   0.0   _Delta y_ 0.0
-cellBasisVector3   0.0  0.0  _Delta z
-```
-
-## Thermostat
-To perform an NVT simulation, we need to use a thermostat.
-For _NAMD_, the algorithm we will employ is the Langevin thermostat:
-
-$$m \frac{d^2 x}{dt^2} = -\nabla U(x) - \gamma \frac{dx}{dt} + \sigma \xi$$
-
-where $$\gamma$$ is the damping coefficient, $$\xi$$ is a random number with 0
-mean and standard deviation 1. The parameter $$\sigma$$ is related to the
-damping coefficient by the fluctuation-dissipation theorem:
-
-$$\sigma^2 = 2 k_B T m \gamma$$.
-
-What we will set is the **damping coefficient** $$\gamma$$ (1/ps). The higher
-the value of this coefficient, the smaller are the fluctuations of the
-temperature. But then the system is highly perturbed.
-As a rule of thumb, the value of $$\gamma$$ should be set to the smallest
-In general, a value between 1 and 10 ps$$^{-1}$$ should be fine.
-value that preserves the wanted temperature (on average).
-
-We have also an option to couple the thermostat to the hydrogen atoms
-of the system. Since we constrain the same atoms, we will disable it.
-
-
-## Launching the simulation
-First launch the simulation with 1 core:
-<p class="prompt prompt-shell">$ namd2 conf.namd > lognameN.log & </p>
-Does it work?
-<p class="prompt prompt-question">$ What is the problem related to?</p>
-
-
-Now try to launch `namd` using more cores:
-<p class="prompt prompt-shell">$ namd2 +pN conf.namd > lognameN.log & </p>
-where `N` is the number of cores available.
-Launch the same simulation using 2,3,4 processes (change also the logfile name).
-In general you should be able to run with `4` cores,
-but remember that your computer needs some resources for the
-opetating system. Therefore, you may not see an increase in the performances
-for 3 processes to 4.
-<p class="prompt prompt-attention">
-1) The output will be overwritten.<br>
-2) If you want to do a for-loop modify the command above (hint:`&`)
-</p>
-
-This time with 4 cores, the simulation takes ~50min for 100k steps. So, launch
-1000 time steps of simulation to check if it works.
-
-
-A longer trajectory (10 ns) in explicit solvent is available [here](https://drive.google.com/file/d/1vP-DcCvr3YVEv0XCXkAtfWwhCAEOOFrn/view?usp=sharing).
-
-
-# AWK detour
-_AWK_ is a scripting language to manipulate text. It is particular useful for small
-tasks that do not rqeuire a lot of lines of code.
-
-The basic syntax of an _awk_ instruction is:
-`awk '{some actions}' < input.file`.
-_awk_ will loop over the lines of the file and perform the actions you wrote.
-The default variables you will need are:
-- `NF`: number of fields (i.e. columns separated as default by blank spaces);
-- `NR`: number of rows (i.e. lines), the counter over which the default
- loop is performed;
-- `$0`: a whole line;
-- `$i`: the i-th field;
-Moreover you can do operations before (`BEGIN`) and after (`END`)
- the main loop.
-
-First, create a file with 1 column filled with numbers from 1 to 100.
-**Hint**: use a bash for-loop.
-
-Then, let's compute the sum and the average.
-```bash
-awk 'BEGIN{sum=0} {sum += $1} END{print "sum:", sum, "\navg:", sum}' < gauss_spicciame_casa.dat
-```
-See _Notes_ for more information and fancy things[^2].
-
-[^2]: Rtfm on `man awk`, or use Google/StackOverflow.
-
-
-Now that we know a bit of _awk_, let's use it for our purposes.
-First let's see how different numbers of cores affect the computation.
-<p class="prompt prompt-shell">$ grep "Benchmark" logname1.log |
- awk '{print $X, $Y, $Z}' > benchmark.dat </p>
-
-Of course we can do the same for all the 4 logfiles.
-<p class="prompt prompt-question">When do you have the ""best"" perfomances?</p>
-
-We saw the `TIMING` and `Benchmark` lines.
-<p class="prompt prompt-question">What is the difference according to you?</p>
-
-We can also use `awk` to get rid of the unwanted columns in the `thermo.dat`
-we obtained before.
-<p class="prompt prompt-question">Make a file with timestep and temperature only,
-using awk.<br>
-Try to compute the average of the same two quantities for the "equilibrated"
- part with _awk_</p>
-
-
-## Excursus
-# VadeVecum for HPC Unitn
-_ovvero_
-# Read Me before using the cluster
-
-This is a very small guide about launching jobs on HPC@Unitn.
-It is meant to be *helpful* for the master students who attended _Computational
-Biophysics_.
-
-You are supposed to have a basic knowledge of bash scripting language (i.e.
-  `cd`, `ls`, `mkdir` and so on...) and a decent OS (i.e. not Windows).
-
-For more info about the cluster,
-see [HPC website](https://icts.unitn.it/en/hpc-cluster).
-For more info about how to use the cluster and the batch scheduler, see section 2.
-
-**Important**: the backslash `\` at the end of a line in a code block means
-that the line continues to the next line. Therefore, if you find
-``` bash
-echo "Ciao, sono un \
-pokemon"
-```
-you have to write in your file:
-``` bash
-echo "Ciao, sono un pokemon"
-```
-
-# 1. How to connect
-In order to connect to the HPC cluster, you have to be connected to the
-university network:
-- you are connected to Unitn-x or similar (so you are in one of the
-  university structures);
-- if you log from home, you need to use the university VPN (install the
-  Pulse secure and google how to connect to unitn).
-
-Once one of the aforementioned criteria is fulfilled, then open a shell
-(Ctrl+Alt+t for Linux user) and type:
-``` bash
- ssh <your-unitn-username>@hpc.unitn.it
-```
-and then your password will be requested.
-
-**NOW** you are connected to the login _computers_.
-**DO NOT LAUNCH JOBS THERE**: those computers are meant just for the job
-submission, since they are shared among all connected users and they have to
-be available.
-If you want to do something on the fly, using only few cores for few minutes,
-go interactively (see 2.1.3)
-
-
-# 2. How to launch a job
-The cluster has a batch scheduler, a software that organises the execution of
-the jobs coming from different users with different requested resources.
-
-Basic dictionary (probably wrong):
-- core: part of a computer that does things
-- node: the whole computer (with multiple cores in it) connected with other
-computers with an _ethernet_ cable;
-- walltime: maximum time you will be granted; if your job is not ended yet, it will be killed. So, choose it carefully and use the `Benchmark` NAMD provides you for a good estimate.
-
-On HPC@Unitn each node has 20 cores.
-
-**We remind you that you should request maximum 20 cores
-(Herr Professor Doktor said 16, but at most ask for 20 without telling him)**.
-As far as I know, you will not be able to run, statistically, those jobs that request more
-than 10 cores per nodes.
-Therefore, either you ask for 10 cores only on a single node (the following
-  line will be clear in a while):
-```
-#PBS -l select=1:ncpus=10:mpiprocs=10:mem=40GB
-```
-or you ask for 10 cores on two nodes (using then 20 cores in total)
-```
-#PBS -l select=2:ncpus=10:mpiprocs=10:mem=40GB
-```
-
-**IMPORTANT**: before launching _THE_ simulation, just run small simulations (1000 timesteps maximum)
-asking for different numbers of cores. For example: launch 3 simulations requesting 5, 10 e 20 cores (_ça va sans dire_, set the walltime at 10 mins).
-Depending on your system, you will have a small gain in performances using 20 cores with
-respect to 10 cores. If this is your case, use only 10 cores, since it will speed
-up your time in queue.
-
-
-
-# 2.1 What to do in practice
-In practice we will use the nodes with gpus to perform our computation.
-
-<p class="prompt prompt-attention">We will monitor your usage of the cluster. <br>
-<br>
-Any not appropriate usage will be reported to the Admins and to the professor.</p>
-
-# 2.1.0 Install NAMD
-First we need to download _NAMD_ in the CUDA version (multicore).
-When the download is completed, you can upload your file to the `home/` of your
-account using:
-<p class="prompt prompt-shell">$ scp file your_username@hpc.unitn.it:</p>
-
-As for your local version of _NAMD_, you have to install it (just extract it) and
-create an alias in your (on the cluster) `home`.
-
-`scp` works as `cp`: if you want to upload or download a folder you have to use
-the option `-r`.
-
-Please note the `:` at the end of the command: the colon represents your `home`.
-If you want to save a file in another directory you should use
-<p class="prompt prompt-shell">$ scp file
- your_username@hpc.unitn.it:path/to/a/folder</p>
-
-With a slight modified version of the command above you can upload all the
-files you need to perform the simulation.
-
-<p class="prompt prompt-question">What files do you need?</p>
-
-# 2.1.1 Create batch file
-Go to your working folder, where you have the configuration file of namd,
-the `.psf` `.pdb` files and so on, and create a `submit_me.pbs` file as
-described below (the extension pbs is purely formal).
-
-```
-#!/bin/bash
-#PBS -l select=1:ncpus=10:mpiprocs=10:mem=10GB
-#PBS -l walltime=00:10:00
-#PBS -q gpuq
-#PBS -N USE_AN_APPROPRIATE_NAME
-#PBS -o appropriate_name_out
-#PBS -e appropriate_name_err
-
-# This is a comment.
-# From the /home in the compute node we move to the
-# directory from which we launched the job
-# (and where you, hopefully, have your files)
-
-cd $PBS_O_WORKDIR
-
-namd2 +p10 +setcpuaffinity +devices 0 conf.namd > log.log
-```
-
-After the file is ready, you submit the job with:
-```
-qsub submit_me.pbs
-```
-
-Now you can wait, have a cup of coffee and pray.
-
-#### 2.1.2 What to modify
-All the lines starting with `#PBS` are **NOT** comments but instructions for
-the batch scheduler.
-
-```
-#PBS -l select=<numberOfNodes>:ncpus=<numberOfCoresPerNode>\
-:mpiprocs=<sameNumberOfNcpus>:mem=<GBofRAMnecessary>
-
-#PBS -l walltime=hours:minutes:seconds
-
-#PBS -q <queue to be used>
-
-#PBS -N <name to be visualised using qstat>
-
-#PBS -o/e <file to redirect stdout and stderr>
-```
-#### 2.1.3 Interactive job
-On the login shell type:
-```
-qsub -I -q <queue> -l select=1:ncpus=2:mpiprocs=2:mem=10GB,walltime=00:30:00
-```
-and then you can use the same commands you use in the `submit_me.pbs` file.
-
-# 2.1.4 Check your job
-To check the status of your submitted jobs, type in the shell:
-```
-qstat -u $USER
-```
-
-
-# 2.2 Further info
-
-For more commands and the use of the batch scheduler:
-- go to [HPC@Unitn guide](https://docs.google.com/document/d/1u8aIAxgXTUoavdkOkAA5DX-COn0NhYeqdg-uYGgcdGs) ;
-- type `man qsub` in your login shell, aka _RTFM_.
-
-
-# Questions
-For any _technical_ questions, first check online (Google and StackOverflow
-  are your best friends).
-
-If in doubt, feel free (but not so free) to send me an e-mail:
-`gianfranco.abrusci@unitn.it`
-
-Trivial questions, already discussed during the tutorial lessons, will be
-answered in a formally non-polite way.
-
-## Go HAM on the cluster
-Now you should have all the tools to perform a benchmark of your system.
-Use 2/5/10 cores to simulate 1000 steps of your system.
-
-<p class="prompt prompt-question">Is there any difference?</p>
-<p class="prompt prompt-question">Compare the benchmark for the 2 cores with
-and without gpus.</p>
-
-## Explicit vs Implicit
-Let's compute the RMSD for the simulation with explicit solvent.
-Perform the average of the temperature for the two kinds of simulations.
-
-<p class="prompt prompt-question">Compute the radius of gyration of
-the protein in implicit and explicit solvent.</p>
-
-!-->
 # Notes
