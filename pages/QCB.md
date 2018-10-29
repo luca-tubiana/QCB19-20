@@ -36,6 +36,7 @@ echo "This is a bash script."
 2. [Tria sunt genera fileorum](/pages/QCB/tutorial2)
 3. [Io NAMD e tu](/pages/QCB/tutorial3) (you should read _Io nammedi e tu_)
 4. [NAMD@HPC](/pages/QCB/tutorial4)
+5. [Membrane Protein](/pages/QCB/tutorial5)
 
 # Useful (hopefully) commands
 - [Bash and ViM cheatsheet](/pages/cs)
