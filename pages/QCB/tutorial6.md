@@ -225,8 +225,12 @@ We can define exception for water molecules nearby the protein (the `WF`, `WCA/B
 **Finally**, we can launch the actual simulation, keeping now constant
 the area of the system.
 
+<p></p>
+<p></p>
 
 ---
+<p></p>
+<p></p>
 <p></p>
 ### MDFF
 MDFF stands for _Molecular Dynamics Flexible Fitting_ and it is a protocol
