@@ -1,27 +1,26 @@
 ---
 layout: page
 author: Gianfranco Abrusci
+permalink: /meh
 mathjax: true
 ---
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 
 
-In this session we will build the setup for the KcsA, a membrane protein,
-and the step to perform the simulation[^1].
+In this session we will complete the setup for the membrane protein KcsA and we will analyse the configuration files to perform the simulation[^1].
 
 [^1]: See [Membrane tutorial](https://www.ks.uiuc.edu/Training/Tutorials/science/membrane/mem-tutorial.pdf) for the references.
 
+The updated files you need are available [here](https://drive.google.com/file/d/1LbPQvlZb5F8V8nPFuzhlyDFoEK7IAAQ0/view?usp=sharing).
+The archive contains the latest system we obtained last time (with
+CHARMm 36 :|) and the configuration files.
 
-The files you need are available [here](https://drive.google.com/file/d/1LbPQvlZb5F8V8nPFuzhlyDFoEK7IAAQ0/view?usp=sharing).
 
+## 
+Today we will use CHARMm 27 ff, although in general you should use the
+latest forcefield available.
 
-# Disclaimer
-**EDITED**: ee will use CHARMm 36 ff.
-
-You are, as always, encourage to read the tutorial in the _Notes_, taking
-into account that the forcefield used in the referenced tutorial is
-CHARMm27.
-
+You are, as always, encourage to read the tutorial in the _Notes_.
 ## Membrane protein
 Membrane proteins are usually more difficult to simulate with respect to
 soluble proteins. The difficulties are mainly related to the unavailability
@@ -285,7 +284,7 @@ You have to download [solvate](https://www.mpibpc.mpg.de/grubmueller/solvate) an
 ```
 solvate -t 3 -n 8 -w kcsav solkcsa
 ```
-and then you should join the protein and the water shell.
+and then you should join the proteina and the water shell.
 Here there is the script you should use, but the complete files are
 already provided.
 ```
@@ -419,7 +418,7 @@ file delete kcsa_TEMP.pdb
 file delete popc_TEMP.pdb
 ```
 
-<!--
+
 The system is not yet the final one. In fact, we need to remove the lipids that
 overlap the protein.
 Load the latest files:
@@ -454,7 +453,7 @@ With the membrane, also water molecules are generated. We need to remove them al
 ```
 set seltext4 "(water and not segname WCA WCB WCC WCD WF SOLV) \
 and same residue as within 3 of \
-((same residue as (name P and beta>0)) or protein)"
+((same residue as (name P1 and beta>0)) or protein)"
 set seltext5 "segname SOLV and same residue as \
 within 3 of lipids"
 set sel4 [atomselect top $seltext4]
@@ -545,7 +544,7 @@ We can define exception for water molecules nearby the protein (the `WF`, `WCA/B
 **Finally**, we can launch the actual simulation, keeping now constant
 the area of the system.
 
-!-->
+
 
 
 
