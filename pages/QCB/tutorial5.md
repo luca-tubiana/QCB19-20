@@ -153,7 +153,7 @@ The **goal** is to create the **psf** for the tetramer. To do so, we need a
 `psf` for each part of the system that is not covalently bonded to other parts.
 
 First, let's save only the part we are interested in. Of course we will
-several pdb files, one for each segment.
+have several pdb files, one for each segment.
 
 Due to the definition of the `segname` in the previous step,
 we can introduce a new `for` loop in _Tcl_ that iterates over all the
