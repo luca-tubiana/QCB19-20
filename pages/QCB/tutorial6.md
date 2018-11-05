@@ -14,11 +14,11 @@ In this session we will complete the setup for the membrane protein KcsA and we 
 
 [^1]: See [Membrane tutorial](https://www.ks.uiuc.edu/Training/Tutorials/science/membrane/mem-tutorial.pdf) for the references.
 
-The updated files you need are available [here](/lol).
+The updated files you need are available [here](https://drive.google.com/file/d/1DA6XUkxuyqmfOWhCmT7IYZ9UO6Wv-FgH/view?usp=sharing).
 The archive contains the latest system we obtained last time (with
 CHARMm 36 :|) and the configuration files.
 
-You are, as always, encourage to read the tutorial in the _Notes_.
+You are, as always, encouraged to read the tutorial in the _Notes_.
 
 ## Previously on FS&HTCT
 What we want to obtain is something like the following setup:
@@ -209,6 +209,7 @@ For this system, we will follow several steps.
 
 <p class="prompt prompt-attention">Modify the PME</p>
 <p class="prompt prompt-attention">Is there something you have never seen?</p>
+<p></p>
 We should tell _NAMD_ what to keep fixed.
 
 **Second**, we will restart the simulation and let everything move,
@@ -229,7 +230,6 @@ the area of the system.
 <p></p>
 
 ---
-<p></p>
 <p></p>
 <p></p>
 ### MDFF
