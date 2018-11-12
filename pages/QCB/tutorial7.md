@@ -53,7 +53,7 @@ the area of the system.
 <p> </p>
 
 
-Recap?[^1]
+Recap[^1]?
 
 [^1]: Here the [recap](https://editor.p5js.org/Gianfree/full/Hy09u_ypX) for today tutorial.
 
