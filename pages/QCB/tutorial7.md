@@ -11,7 +11,10 @@ We obtained the following setup:
 
 
 ## Running the simulation
-We are ready to launch the simulation.
+We are ready to launch the simulation[^1].
+
+[^1]: Here the [recap](https://editor.p5js.org/Gianfree/full/Hy09u_ypX) for today tutorial.
+
 
 <p class="prompt prompt-attention">Check each conf file individually
 to check that every command is properly defined </p>
@@ -53,9 +56,6 @@ the area of the system.
 <p> </p>
 
 
-Recap[^1]?
-
-[^1]: Here the [recap](https://editor.p5js.org/Gianfree/full/Hy09u_ypX) for today tutorial.
 
 ## A new episode of...
 <iframe class="center" frameborder="no" border="0" src="https://editor.p5js.org/Gianfree/embed/Sk4_1sphm" width="660px" height="260" ></iframe>
