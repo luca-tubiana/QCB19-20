@@ -37,7 +37,8 @@ echo "This is a bash script."
 3. [Io NAMD e tu](/pages/QCB/tutorial3) (you should read _Io nammedi e tu_)
 4. [NAMD@HPC](/pages/QCB/tutorial4)
 5. [Membrane Protein (part I)](/pages/QCB/tutorial5)
-5. [Membrane Protein (part II) - MDFF](/pages/QCB/tutorial6)
+6. [Membrane Protein (part II)](/pages/QCB/tutorial6)
+7. [MP (episode III) - MDFF](/pages/QCB/tutorial7)
 
 # Useful (hopefully) commands
 - [Bash and ViM cheatsheet](/pages/cs)

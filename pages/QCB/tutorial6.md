@@ -197,6 +197,8 @@ file delete kcsa_popc_water_TEMP.pdb
 
 Finally we can add the ions with the _Add ions_ package.
 
+
+<!--
 ## Running the simulation
 We are ready to launch the simulation.
 
@@ -250,6 +252,6 @@ the [Cryo-EM database](http://www.emdatabank.org/).
 For this tutorial you can download the necessary [files](https://www.ks.uiuc.edu/Training/Tutorials/science/mdff/mdff-tutorial-files.tar.gz) and the [instructions](https://www.ks.uiuc.edu/Training/Tutorials/science/mdff/tutorial_mdff.pdf) for the TCBG group in Urbana-Champaign.
 
 We will do only the vacuum part. If there is more time left, we will go forward.
-
+!-->
 
 # Notes
