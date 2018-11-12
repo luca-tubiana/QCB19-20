@@ -46,14 +46,15 @@ We release also the protein to perform the equilibration.
 Finally, we can launch the actual simulation, keeping now constant
 the area of the system.
 
-<p></p>
-<p></p>
-<p></p>
-<p></p>
-<p></p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
 
 
 Recap?[^1]
+
 [^1]: Here the [recap](https://editor.p5js.org/Gianfree/full/Hy09u_ypX) for today tutorial.
 
 ## A new episode of...
