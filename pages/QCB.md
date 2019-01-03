@@ -19,6 +19,7 @@ Throughout the tutorial we will use the following colour code[^1] if needed.
 
 <p class="prompt prompt-attention"> Pay attention to this!</p>
 <p class="prompt prompt-info"> Useful(?) information. </p>
+<p class="prompt prompt-link"> Useful links. </p>
 <p class="prompt prompt-question"> Think about this question. </p>
 <p class="prompt prompt-shell"> Bash shell commands/outputs</p>
 <p class="prompt prompt-tk"> VMD tcl/tk console.</p>
