@@ -61,6 +61,7 @@ You can move 3 characters on the right if you type `3l`, or
  ~      | change uppercase into lowercase and viceversa
 
 In _Vim_ you can combine movement commands with action commands.
+
 The order is:
 `Action`_n-times_`movement`.
 
