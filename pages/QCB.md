@@ -41,7 +41,7 @@ echo "This is a bash script."
 6. [Membrane Protein (part II)](/pages/QCB/tutorial6)
 7. [MP (episode III) - MDFF](/pages/QCB/tutorial7)
 8. [Double O license](/pages/QCB/tutorial8) (to kill degrees of freedom)
-9. [Double O license]() yet to be uploaded
+9. [Analysis](/pages/QCB/tutorial9) (need to be prettified)
 10. [A brief intro into Colvar](/pages/QCB/tutorial10)
 
 # Useful (hopefully) commands
