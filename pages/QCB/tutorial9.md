@@ -5,6 +5,10 @@ mathjax: true
 ---
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 
+Most of the scripts are taken from the MDAnaysis github repository.
+ASAP I will put the link, but a search will show you all the sources.
+
+
 # Introduction
 
 After the simulation is completed, we need to analyse the trajectory.
