@@ -262,7 +262,7 @@ The secondary structure is inferred by the 3D arrangement of the residues and th
 
 Here the colouring scheme for the secondary structure.
 
-<IMG class="displayed" src="../../img/tut1/vmd_struct.png" alt ="">     
+<IMG class="displayed" src="../../img/tut1/vmd_struct.png" alt ="">
 * T = hydrogen bonded turn (3, 4 or 5 turn)
 * E = extended strand in parallel and/or anti-parallel β-sheet conformation.
 * B = residue in isolated β-bridge (single pair β-sheet hydrogen bond formation)
