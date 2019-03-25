@@ -119,7 +119,7 @@ First, create a file with 1 column filled with numbers from 1 to 100.
 
 Then, let's compute the sum and the average.
 ```bash
-awk 'BEGIN{sum=0} {sum += $1} END{print "sum:", sum, "\navg:", sum}' < gauss_spicciame_casa.dat
+awk 'BEGIN{sum=0} {sum += $1} END{print "sum:", sum, "\navg:", sum/NR}' < gauss_spicciame_casa.dat
 ```
 See _Notes_ for more information and fancy things[^2].
 
