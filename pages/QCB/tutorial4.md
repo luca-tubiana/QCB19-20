@@ -158,7 +158,7 @@ You are supposed to have a basic knowledge of bash scripting language (i.e.
   `cd`, `ls`, `mkdir` and so on...) and a decent OS (i.e. not Windows).
 
 For more info about the cluster,
-see [HPC website](https://icts.unitn.it/en/hpc-cluster).
+see [HPC website](https://sites.google.com/unitn.it/hpc/home).
 For more info about how to use the cluster and the batch scheduler, see section 2.
 
 **Important**: the backslash `\` at the end of a line in a code block means
@@ -183,7 +183,7 @@ university network:
 Once one of the aforementioned criteria is fulfilled, then open a shell
 (Ctrl+Alt+t for Linux user) and type:
 ``` bash
- ssh <your-unitn-username>@hpc.unitn.it
+ ssh <your-unitn-username>@hpc2.unitn.it
 ```
 and then your password will be requested.
 
