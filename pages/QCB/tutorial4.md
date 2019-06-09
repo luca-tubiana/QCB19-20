@@ -205,7 +205,8 @@ Basic dictionary (probably wrong):
 computers with an _ethernet_ cable;
 - walltime: maximum time you will be granted; if your job is not ended yet, it will be killed. So, choose it carefully and use the `Benchmark` NAMD provides you for a good estimate.
 
-On HPC@Unitn each node has 20 cores.
+On HPC@Unitn each node has a variable number of cores. We will use only the
+ nodes with GPUs.
 
 **We remind you that you should request maximum 20 cores
 (Herr Professor Doktor said 16, but at most ask for 20 without telling him)**.
@@ -267,7 +268,7 @@ described below (the extension pbs is purely formal).
 #!/bin/bash
 #PBS -l select=1:ncpus=10:mpiprocs=10:mem=10GB
 #PBS -l walltime=00:10:00
-#PBS -q gpuq
+#PBS -q short_gpuQ
 #PBS -N USE_AN_APPROPRIATE_NAME
 #PBS -o appropriate_name_out
 #PBS -e appropriate_name_err
@@ -322,7 +323,7 @@ qstat -u $USER
 # 2.2 Further info
 
 For more commands and the use of the batch scheduler:
-- go to [HPC@Unitn guide](https://docs.google.com/document/d/1u8aIAxgXTUoavdkOkAA5DX-COn0NhYeqdg-uYGgcdGs) ;
+- go to [HPC@Unitn guide](https://sites.google.com/unitn.it/hpc/architetturahttps://sites.google.com/unitn.it/hpc/architetturaiiiOQOQOQOQ::wqqq:WQqqqqqOQOQOQOQ[200~https://sites.google.com/unitn.it/hpc/architetturahttps://sites.google.com/unitn.it/hpc/architettura);
 - type `man qsub` in your login shell, aka _RTFM_.
 
 
