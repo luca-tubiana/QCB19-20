@@ -1,6 +1,4 @@
 _site
-.sass-cache
-.jekyll-metadata
 old_config.yml
 src_files/tutorial*
 src_files/meta*
